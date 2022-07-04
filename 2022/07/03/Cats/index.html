@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="CatsCats is a program that measures typing speed. When finishing the program, you have to solve 10 problems. This is the sample of the program: Cats We will divide this project into 3 parts. Prat 1:">
+  <meta name="description" content="CatsCats 项目的目标是开发一个打字测速器。 这里是项目完成后的一个样品: Cats 我们将此项目分成三部分来逐渐完成。你需要在这过程中陆续解决10个问题。 Prat 1:  TypingProblem 1实现choose函数，其中包含以下三个参数：  a list of paragraphs a select function, which returns Ture for paragra">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cs61a_cats">
 <meta property="og:url" content="http://example.com/2022/07/03/Cats/index.html">
 <meta property="og:site_name" content="Sun0405&#39;s Blog">
-<meta property="og:description" content="CatsCats is a program that measures typing speed. When finishing the program, you have to solve 10 problems. This is the sample of the program: Cats We will divide this project into 3 parts. Prat 1:">
+<meta property="og:description" content="CatsCats 项目的目标是开发一个打字测速器。 这里是项目完成后的一个样品: Cats 我们将此项目分成三部分来逐渐完成。你需要在这过程中陆续解决10个问题。 Prat 1:  TypingProblem 1实现choose函数，其中包含以下三个参数：  a list of paragraphs a select function, which returns Ture for paragra">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-03T09:35:03.000Z">
-<meta property="article:modified_time" content="2022-07-04T01:55:55.042Z">
+<meta property="article:modified_time" content="2022-07-04T14:24:46.876Z">
 <meta property="article:author" content="Sun0405">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
@@ -191,7 +191,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-07-04 09:55:55" itemprop="dateModified" datetime="2022-07-04T09:55:55+08:00">2022-07-04</time>
+                <time title="修改时间：2022-07-04 22:24:46" itemprop="dateModified" datetime="2022-07-04T22:24:46+08:00">2022-07-04</time>
               </span>
 
           
@@ -205,10 +205,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Cats"><a href="#Cats" class="headerlink" title="Cats"></a>Cats</h1><p><strong>Cats</strong> is a program that measures typing speed. When finishing the program, you have to solve 10 problems.</p>
-<p>This is the sample of the program: <a target="_blank" rel="noopener" href="https://cats.cs61a.org/">Cats</a></p>
-<p>We will divide this project into 3 parts.</p>
-<h2 id="Prat-1-Typing"><a href="#Prat-1-Typing" class="headerlink" title="Prat 1:  Typing"></a>Prat 1:  Typing</h2><h3 id="Problem-1"><a href="#Problem-1" class="headerlink" title="Problem 1"></a>Problem 1</h3>
+        <h1 id="Cats"><a href="#Cats" class="headerlink" title="Cats"></a>Cats</h1><p><strong>Cats</strong> 项目的目标是开发一个打字测速器。</p>
+<p>这里是项目完成后的一个样品: <a target="_blank" rel="noopener" href="https://cats.cs61a.org/">Cats</a></p>
+<p>我们将此项目分成三部分来逐渐完成。你需要在这过程中陆续解决10个问题。</p>
+<h2 id="Prat-1-Typing"><a href="#Prat-1-Typing" class="headerlink" title="Prat 1:  Typing"></a>Prat 1:  Typing</h2><h3 id="Problem-1"><a href="#Problem-1" class="headerlink" title="Problem 1"></a>Problem 1</h3><p>实现<code>choose</code>函数，其中包含以下三个参数：</p>
+<ul>
+<li>a list of paragraphs</li>
+<li>a select function, which returns <code>Ture</code> for paragraphs that can be selected</li>
+<li>a non-negative index k</li>
+</ul>
+<p>函数<code>choose</code>将会返回第k个符合函数<code>select</code>的词组。</p>
+<p>如果没有这样的自然段存在（因为k太大了），函数返回空字符串。</p>
+<h3 id="Problem-2"><a href="#Problem-2" class="headerlink" title="Problem 2"></a>Problem 2</h3><p><code>about</code>是返回值为函数的一个函数。返回值函数可以用于<code>choose</code>函数，方便以后调用。</p>
+<p>此函数有一个参数<code>topic</code>，<code>topic</code>是一个字符串组，返回值函数是来判断词组中是否含有<code>topic</code>中的单词。</p>
+<p>Tips: 不分大小写和标点符号，且要学会使用<code>utils.py</code>函数。</p>
+<h3 id="Problem3"><a href="#Problem3" class="headerlink" title="Problem3"></a>Problem3</h3><p>实现<code>accuracy</code>函数，此函数引用了两个参数，<code>typed</code>和<code>reference</code>，返回值为<code>typed</code>与<code>reference</code>的匹配度。</p>
+<p>需要注意的是，当两者均为空时，匹配度为100，而一方为0时，匹配度为0。</p>
+<h3 id="Problem4"><a href="#Problem4" class="headerlink" title="Problem4"></a>Problem4</h3><p><code>wpm</code>函数，全称为word per minute, 是用来计算打字速度的函数，其中，他不是用的每个单词并不是指一个实际的单词，而是用5个字母来代替一个单词</p>
+<p><em>至此，这个项目已经能简单的运行并测试你的打字速度了</em></p>
+<h2 id="Part-2"><a href="#Part-2" class="headerlink" title="Part 2"></a>Part 2</h2><h3 id="Problem-5"><a href="#Problem-5" class="headerlink" title="Problem 5"></a>Problem 5</h3><p>实现一个函数<code>autocorrect</code>， 这个函数有四个参数，分别是<code>typed_words</code>, <code>valid_words</code>, <code>diff_function</code> and <code>limit</code>。</p>
+<ul>
+<li>如果<code>typed_words</code>是包含在<code>valid_words</code>里面，那么此函数直接返回这个单词。</li>
+<li>如果存在差异，那么用<code>diff_function</code>来判断。</li>
+</ul>
+<p><code>diff_function</code>返回值为一个数字，一般情况是返回差异最小的单词，但是当<code>diff_function</code>的返回值大于<code>limit</code>时，返回<code>typed_word</code>。</p>
+<p>*Hints: 尝试使用<code>max</code> 和<code>min</code>函数，已经可选择的<code>key</code>参数</p>
+<h3 id="Problem-6"><a href="#Problem-6" class="headerlink" title="Problem 6"></a>Problem 6</h3><p>实现函数<code>feline_flips</code>，这个函数可用于problem 5中的<code>diff_function</code>函数。</p>
+<p>先看需要替换的字母数，再加上样本和标准之间的长度差。</p>
+
     </div>
 
     
@@ -288,7 +312,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Cats"><span class="nav-number">1.</span> <span class="nav-text">Cats</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Prat-1-Typing"><span class="nav-number">1.1.</span> <span class="nav-text">Prat 1:  Typing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-1"><span class="nav-number">1.1.1.</span> <span class="nav-text">Problem 1</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Cats"><span class="nav-number">1.</span> <span class="nav-text">Cats</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Prat-1-Typing"><span class="nav-number">1.1.</span> <span class="nav-text">Prat 1:  Typing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-1"><span class="nav-number">1.1.1.</span> <span class="nav-text">Problem 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-2"><span class="nav-number">1.1.2.</span> <span class="nav-text">Problem 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem3"><span class="nav-number">1.1.3.</span> <span class="nav-text">Problem3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem4"><span class="nav-number">1.1.4.</span> <span class="nav-text">Problem4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-2"><span class="nav-number">1.2.</span> <span class="nav-text">Part 2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-5"><span class="nav-number">1.2.1.</span> <span class="nav-text">Problem 5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem-6"><span class="nav-number">1.2.2.</span> <span class="nav-text">Problem 6</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
