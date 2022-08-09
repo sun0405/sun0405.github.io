@@ -20,30 +20,34 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="没有答案，时光荏苒">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sun0405&#39;s Blog">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="Scheme-part1Scheme是一个著名的函数式编程语言，它是Lisp的一种形式。 在学习Sheme的过程中，我们将对解释器即interpreter进行了解，并研究解释器的设计和他们在执行程序时创建的计算过程。程序语言只是文本的集合，只有通过解释器我们才能执行对应的计算。 一般解释器都有一个共同的结构：两个相互递归的函数。  一个评估环境中的表达式 一个将函数应用于参数  因为是相互递归的，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scheme-part1">
+<meta property="og:url" content="http://example.com/2022/08/09/Scheme-part1/index.html">
 <meta property="og:site_name" content="Sun0405&#39;s Blog">
-<meta property="og:description" content="没有答案，时光荏苒">
+<meta property="og:description" content="Scheme-part1Scheme是一个著名的函数式编程语言，它是Lisp的一种形式。 在学习Sheme的过程中，我们将对解释器即interpreter进行了解，并研究解释器的设计和他们在执行程序时创建的计算过程。程序语言只是文本的集合，只有通过解释器我们才能执行对应的计算。 一般解释器都有一个共同的结构：两个相互递归的函数。  一个评估环境中的表达式 一个将函数应用于参数  因为是相互递归的，">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-09T02:19:13.000Z">
+<meta property="article:modified_time" content="2022-08-09T02:20:05.184Z">
 <meta property="article:author" content="Sun0405">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="cs61a">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2022/08/09/Scheme-part1/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Sun0405's Blog</title>
+  <title>Scheme-part1 | Sun0405's Blog</title>
   
 
 
@@ -151,9 +155,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -169,10 +174,9 @@
       <meta itemprop="name" content="Sun0405's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/08/09/Scheme-part1/" class="post-title-link" itemprop="url">Scheme-part1</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Scheme-part1
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -196,7 +200,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Scheme-part1"><a href="#Scheme-part1" class="headerlink" title="Scheme-part1"></a>Scheme-part1</h1><p><code>Scheme</code>是一个著名的函数式编程语言，它是<code>Lisp</code>的一种形式。</p>
+        <h1 id="Scheme-part1"><a href="#Scheme-part1" class="headerlink" title="Scheme-part1"></a>Scheme-part1</h1><p><code>Scheme</code>是一个著名的函数式编程语言，它是<code>Lisp</code>的一种形式。</p>
 <p>在学习<code>Sheme</code>的过程中，我们将对解释器即<code>interpreter</code>进行了解，并研究解释器的设计和他们在执行程序时创建的计算过程。程序语言只是文本的集合，只有通过解释器我们才能执行对应的计算。</p>
 <p>一般解释器都有一个共同的结构：两个相互递归的函数。</p>
 <ul>
@@ -258,416 +262,34 @@
 <p>在不加引号时，程序自动执行里面表达式的值，但是当加了引号后，就不执行表达式，而是完整的返回这串字符。</p>
 <p><strong>因为程序语言都是文本，换句话说都是list，所以这个可以适用于很多应用</strong></p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/cs61a/" rel="tag"># cs61a</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/17/2022-07-17/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Sun0405">
-      <meta itemprop="description" content="没有答案，时光荏苒">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sun0405's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/17/2022-07-17/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-07-17 22:07:41" itemprop="dateCreated datePublished" datetime="2022-07-17T22:07:41+08:00">2022-07-17</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/07/17/2022-07-17/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/17/cs61a-Ants/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Sun0405">
-      <meta itemprop="description" content="没有答案，时光荏苒">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sun0405's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/17/cs61a-Ants/" class="post-title-link" itemprop="url">cs61a_Ants</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-07-17 09:12:25 / 修改时间：09:24:50" itemprop="dateCreated datePublished" datetime="2022-07-17T09:12:25+08:00">2022-07-17</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Ants"><a href="#Ants" class="headerlink" title="Ants"></a>Ants</h1><p>此游戏是模仿植物大战僵尸的游戏，用蚂蚁和蜜蜂来代替植物与僵尸，大致玩法类似，相信大家都玩过。</p>
-<h2 id="Core-concepts"><a href="#Core-concepts" class="headerlink" title="Core concepts"></a>Core concepts</h2><p><strong>The colony</strong>:<br>This is where the game takes place. The colony consists of several <code>Place</code>s that are chained together to form a tunnel where bees can travel through. The colony also has some quantity of food which can be expended in order to place an ant in a tunnel.</p>
-<p><strong>Places</strong>:<br>A place links to another place to form a tunnel.The player can put a single ant into each place. However, there can be many bees in a single place.</p>
-<p><strong>The Hive</strong>:<br> This is the place where bees originate. Bees exit the beehive to enter the ant colony.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/09/note1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Sun0405">
-      <meta itemprop="description" content="没有答案，时光荏苒">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sun0405's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/09/note1/" class="post-title-link" itemprop="url">cs61a_note1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-07-09 09:24:07 / 修改时间：09:57:41" itemprop="dateCreated datePublished" datetime="2022-07-09T09:24:07+08:00">2022-07-09</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Note-1"><a href="#Note-1" class="headerlink" title="Note 1"></a>Note 1</h1><p>This part is a summary of <strong>Lists, Data Abstraction, Trees.</strong> </p>
-<h2 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h2><p>A list is a data structure that can store multiple elements. Each element can be any type, even a list itself. We write a list as a comma-separated list of expressions in square brackets:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list_of_ints = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list_of_bools = [<span class="literal">True</span>, <span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">False</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>nested_lists = [<span class="number">1</span>, [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, [<span class="number">5</span>]]]</span><br></pre></td></tr></table></figure>
-
-<p>Each element in the list has an index, and you should notice that the first element in the list whose index is 0 but not 1.</p>
-<p>For <code>list[a: b]</code>, this is like as [a, b).</p>
-<h2 id="Data-Abstraction"><a href="#Data-Abstraction" class="headerlink" title="Data Abstraction"></a>Data Abstraction</h2><p>Data abstraction is a powerful concept in computer science that allows programmers to treat code as objects. For example, using code to represent cars, chairs, people, and so on. That way, programmers don’t have to worry about <em>how</em> code is implemented; they just have to know <em>what</em> it does.</p>
-<p><strong>What is the most important is: Constructors and Selectors</strong></p>
-<ul>
-<li><strong>Constructors: functions that build the abstract data type</strong> </li>
-<li><strong>Selectors: functions that retrieve information from the data type</strong></li>
-</ul>
-<h2 id="Trees"><a href="#Trees" class="headerlink" title="Trees"></a>Trees</h2><p>A <code>Tree</code> is a data structure that represents a hierarchy of information. </p>
-<p>A good simple is the file system:</p>
-<p><img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20220709094242757.png" alt="image-20220709094242757"></p>
-<p>As you can see, unlike trees in nature, the tree abstract data type is drawn with the root at the top and the leaves at the bottom.</p>
-<p>Here are some tree terminology:</p>
-<ul>
-<li><strong>root</strong>: the node at the top of the tree</li>
-<li><strong>label</strong>: the value in a node</li>
-<li><strong>branches</strong>: a list of trees directly under the tree’s root</li>
-<li><strong>leaf</strong>: a tree with zero branches</li>
-<li><strong>node</strong>: any location within the tree</li>
-</ul>
-<p><em>Some general functions:</em></p>
-<ul>
-<li><code>tree(label, [branches = [])</code></li>
-<li><code>label(tree)</code></li>
-<li><code>branches(tree)</code></li>
-<li><code>is_tree</code></li>
-<li><code>is_leaf</code></li>
-</ul>
-<p>When using <code>tree</code>structure, a recursive idea is often used. Because a tree is a recursive structure.</p>
-<p>Like this:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_leaves</span>(<span class="params">t</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Returns the number of leaf nodes in T.&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> is_leaf(t):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        leaves_under = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> b <span class="keyword">in</span> branches(t):</span><br><span class="line">            leaves_under += count_leaves(b)</span><br><span class="line">        <span class="keyword">return</span> leaves_under</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/03/Cats/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Sun0405">
-      <meta itemprop="description" content="没有答案，时光荏苒">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sun0405's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/03/Cats/" class="post-title-link" itemprop="url">cs61a_Cats</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-07-03 17:35:03" itemprop="dateCreated datePublished" datetime="2022-07-03T17:35:03+08:00">2022-07-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-07-17 09:19:17" itemprop="dateModified" datetime="2022-07-17T09:19:17+08:00">2022-07-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Cats"><a href="#Cats" class="headerlink" title="Cats"></a>Cats</h1><p><strong>Cats</strong> 项目的目标是开发一个打字测速器。</p>
-<p>这里是项目完成后的一个样品: <a target="_blank" rel="noopener" href="https://cats.cs61a.org/">Cats</a></p>
-<p>我们将此项目分成三部分来逐渐完成。你需要在这过程中陆续解决10个问题。</p>
-<h2 id="Prat-1-Typing"><a href="#Prat-1-Typing" class="headerlink" title="Prat 1:  Typing"></a>Prat 1:  Typing</h2><p>本部分主要是解决打字的速度和准确度问题。</p>
-<h3 id="Problem-1"><a href="#Problem-1" class="headerlink" title="Problem 1"></a>Problem 1</h3><p>实现<code>choose</code>函数，其中包含以下三个参数：</p>
-<ul>
-<li>a list of paragraphs</li>
-<li>a select function, which returns <code>Ture</code> for paragraphs that can be selected</li>
-<li>a non-negative index k</li>
-</ul>
-<p>函数<code>choose</code>将会返回第k个符合函数<code>select</code>的词组。</p>
-<p>如果没有这样的自然段存在（因为k太大了），函数返回空字符串。</p>
-<h3 id="Problem-2"><a href="#Problem-2" class="headerlink" title="Problem 2"></a>Problem 2</h3><p><code>about</code>是返回值为函数的一个函数。返回值函数可以用于<code>choose</code>函数，方便以后调用。</p>
-<p>此函数有一个参数<code>topic</code>，<code>topic</code>是一个字符串组，返回值函数是来判断词组中是否含有<code>topic</code>中的单词。</p>
-<p>Tips: 不分大小写和标点符号，且要学会使用<code>utils.py</code>函数。</p>
-<h3 id="Problem3"><a href="#Problem3" class="headerlink" title="Problem3"></a>Problem3</h3><p>实现<code>accuracy</code>函数，此函数引用了两个参数，<code>typed</code>和<code>reference</code>，返回值为<code>typed</code>与<code>reference</code>的匹配度。</p>
-<p>需要注意的是，当两者均为空时，匹配度为100，而一方为0时，匹配度为0。</p>
-<h3 id="Problem4"><a href="#Problem4" class="headerlink" title="Problem4"></a>Problem4</h3><p><code>wpm</code>函数，全称为word per minute, 是用来计算打字速度的函数，其中，他不是用的每个单词并不是指一个实际的单词，而是用5个字母来代替一个单词</p>
-<p><strong>至此，这个项目已经能简单的运行并测试你的打字速度了</strong></p>
-<h2 id="Part-2"><a href="#Part-2" class="headerlink" title="Part 2"></a>Part 2</h2><p>本部分主要是解决自动修正问题。</p>
-<h3 id="Problem-5"><a href="#Problem-5" class="headerlink" title="Problem 5"></a>Problem 5</h3><p>实现一个函数<code>autocorrect</code>， 这个函数有四个参数，分别是<code>typed_words</code>, <code>valid_words</code>, <code>diff_function</code> and <code>limit</code>。</p>
-<ul>
-<li>如果<code>typed_words</code>是包含在<code>valid_words</code>里面，那么此函数直接返回这个单词。</li>
-<li>如果存在差异，那么用<code>diff_function</code>来判断。</li>
-</ul>
-<p><code>diff_function</code>返回值为一个数字，一般情况是返回差异最小的单词，但是当<code>diff_function</code>的返回值大于<code>limit</code>时，返回<code>typed_word</code>。</p>
-<p><em>Hints: 尝试使用<code>max</code> 和<code>min</code>函数，已经可选择的<code>key</code>参数</em></p>
-<h3 id="Problem-6"><a href="#Problem-6" class="headerlink" title="Problem 6"></a>Problem 6</h3><p>实现函数<code>feline_flips</code>，这个函数可用于problem 5中的<code>diff_function</code>函数。</p>
-<p>先看需要替换的字母数，再加上样本和标准之间的长度差。</p>
-<p><em>使用递归</em></p>
-<h3 id="Problem-7"><a href="#Problem-7" class="headerlink" title="Problem 7"></a>Problem 7</h3><p>实现<code>minimum_mewtation</code>函数，这个函数返回从<code>start</code>到<code>goal</code>所需变化的最小步数。</p>
-<p>这里有三种情况：</p>
-<ul>
-<li>增加一个字母</li>
-<li>删除一个字母</li>
-<li>替换一个字母</li>
-</ul>
-<p>每个变化记为1.</p>
-<p>本函数已经提供了模板，是一个递归结构，里面包含三个递归函数，其中有一个递归函数与problem 6 中的<code>feline_flips</code>相似。</p>
-<p><strong>至此，现在的项目已经可以利用自动更正系统辅助打字了</strong></p>
-<h2 id="Part-3"><a href="#Part-3" class="headerlink" title="Part 3"></a>Part 3</h2><p>本部分主要是解决多人打字问题。</p>
-<h3 id="Problem-8"><a href="#Problem-8" class="headerlink" title="Problem 8"></a>Problem 8</h3><p>实现<code>report_progress</code>函数，参数为<code>sofar</code>, <code>prompt</code>, <code>user_id</code>和<code>upload</code>。其中，<code>prompt</code>中的单词不少于<code>sofar</code>。</p>
-<p>如何计算进度？在第一个错误词汇前拼写正确的单词数除以<code>prompt</code>的总单词数即可。</p>
-<h3 id="Problem-9"><a href="#Problem-9" class="headerlink" title="Problem 9"></a>Problem 9</h3><p>实现<code>time_per_word</code>函数，它的参数是<code>words</code>和<code>times_per_player</code>，都是列表。返回值为<code>match</code>。</p>
-<p><code>match</code>是一个抽象数据，里面包含<code>words</code>和<code>times</code>。其中，<code>times</code>是一个双重列表。<code>times[i][j]</code>表示第i个玩家拼写第j个单词的时间。</p>
-<p>这个问题主要是检测对于抽象数据的实现，而不是像以前的列表和字典一样，仅仅只是特定的数据结构。</p>
-<p><em>For example</em>: 如果<code>times_per_player = [[1, 3, 5], [2, 5, 6]]</code>, 那么对应的<code>match</code>应该是<code>[[2,2], [3, 1]]</code>。因为是由<code>(3-1)，(5-3)</code>得来的。</p>
-<h3 id="Problem-10"><a href="#Problem-10" class="headerlink" title="Problem 10"></a>Problem 10</h3><p>实现<code>fastest_words</code>函数，此函数返回玩家打字最快的单词。参数为<code>match</code>。</p>
-<p>需要注意的是，返回值是一个列表的列表，而且当两个玩家打字速度相同时，认为这个单词最快速度属于前一个玩家。</p>
-<p><code>match</code>是problem 9中的返回值，一个抽象数据。要学会使用<code>word_at</code>函数，参数是<code>match</code>和<code>word_index</code>。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/08/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Sun0405">
-      <meta itemprop="description" content="没有答案，时光荏苒">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sun0405's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/08/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-12-08 10:59:14" itemprop="dateCreated datePublished" datetime="2021-12-08T10:59:14+08:00">2021-12-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-07-04 09:36:01" itemprop="dateModified" datetime="2022-07-04T09:36:01+08:00">2022-07-04</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Hello World!</p>
-<p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is my very first post. </p>
-<p><a target="_blank" rel="noopener" href="https://sun0405.github.io/">The blog</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/sun0405">My github</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -720,6 +342,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Scheme-part1"><span class="nav-number">1.</span> <span class="nav-text">Scheme-part1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Scheme%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">Scheme的语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Expressions"><span class="nav-number">1.1.1.</span> <span class="nav-text">Expressions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Symbols"><span class="nav-number">1.1.2.</span> <span class="nav-text">Symbols</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E5%80%BC"><span class="nav-number">1.1.3.</span> <span class="nav-text">布尔值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.1.4.</span> <span class="nav-text">特殊表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.1.5.</span> <span class="nav-text">if表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cond%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.1.6.</span> <span class="nav-text">cond表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#define"><span class="nav-number">1.1.7.</span> <span class="nav-text">define</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.1.8.</span> <span class="nav-text">Lambda表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#begin"><span class="nav-number">1.1.9.</span> <span class="nav-text">begin</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List-in-Scheme"><span class="nav-number">1.2.</span> <span class="nav-text">List in Scheme</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#list%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.2.1.</span> <span class="nav-text">list语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quote-Form"><span class="nav-number">1.2.2.</span> <span class="nav-text">Quote Form</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
