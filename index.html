@@ -157,6 +157,63 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/13/Scheme-part4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sun0405">
+      <meta itemprop="description" content="没有答案，时光荏苒">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sun0405's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/13/Scheme-part4/" class="post-title-link" itemprop="url">Scheme-part4</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-13 20:58:30" itemprop="dateCreated datePublished" datetime="2022-08-13T20:58:30+08:00">2022-08-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/10/Scheme-part3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -180,10 +237,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-08-10 09:52:41 / 修改时间：11:13:27" itemprop="dateCreated datePublished" datetime="2022-08-10T09:52:41+08:00">2022-08-10</time>
+              <time title="创建时间：2022-08-10 09:52:41" itemprop="dateCreated datePublished" datetime="2022-08-10T09:52:41+08:00">2022-08-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-13 09:47:35" itemprop="dateModified" datetime="2022-08-13T09:47:35+08:00">2022-08-13</time>
+              </span>
 
           
 
@@ -249,7 +312,7 @@
 <li>Recursive case: read subexpressions and combine them</li>
 </ul>
 <h3 id="Pair-class"><a href="#Pair-class" class="headerlink" title="Pair class"></a>Pair class</h3><p><code>pair class</code>代表<code>Scheme</code>中的<code>pairs</code>和<code>list</code>，如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(Pair(<span class="number">1</span>, <span class="number">2</span>))  <span class="comment"># (1 . 2)</span></span><br><span class="line"><span class="built_in">print</span>(Pair(<span class="number">1</span>, Pair(<span class="number">2</span>, <span class="number">3</span>))) <span class="comment"># (1 2 . 3)</span></span><br><span class="line"><span class="built_in">len</span>(Pair(<span class="number">1</span>, Pair(<span class="number">2</span>, <span class="number">3</span>))) Error!</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(Pair(<span class="number">1</span>, <span class="number">2</span>))  <span class="comment"># (1 2)</span></span><br><span class="line"><span class="built_in">print</span>(Pair(<span class="number">1</span>, Pair(<span class="number">2</span>, <span class="number">3</span>))) <span class="comment"># (1 2 3)</span></span><br><span class="line"><span class="built_in">len</span>(Pair(<span class="number">1</span>, Pair(<span class="number">2</span>, <span class="number">3</span>))) Error!</span><br></pre></td></tr></table></figure>
 
 <h3 id="计算器语言"><a href="#计算器语言" class="headerlink" title="计算器语言"></a>计算器语言</h3><p>编程语言具有：</p>
 <ul>
@@ -947,7 +1010,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
