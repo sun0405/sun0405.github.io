@@ -20,19 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Hello World! Welcome to Hexo! This is my very first post.  The blog My github">
+  <meta name="description" content="Scheme Project这个项目主要是自己写一个scheme语言的解释器，对于我来说是一个全新的挑战，因为涉及到了很多以前的知识。 用python来解释scheme语言：  Parsing: 解析程序语言，分解为Pair类的实例，然后执行 evaluate and apply: 执行与应用相互嵌套，参见part4 Procedure: 对于scheme，procedure是一种函数，而在pyt">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2021/12/08/hello-world/index.html">
+<meta property="og:title" content="Scheme-project">
+<meta property="og:url" content="http://example.com/2022/08/13/Scheme-project/index.html">
 <meta property="og:site_name" content="Sun0405&#39;s Blog">
-<meta property="og:description" content="Hello World! Welcome to Hexo! This is my very first post.  The blog My github">
+<meta property="og:description" content="Scheme Project这个项目主要是自己写一个scheme语言的解释器，对于我来说是一个全新的挑战，因为涉及到了很多以前的知识。 用python来解释scheme语言：  Parsing: 解析程序语言，分解为Pair类的实例，然后执行 evaluate and apply: 执行与应用相互嵌套，参见part4 Procedure: 对于scheme，procedure是一种函数，而在pyt">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-12-08T02:59:14.691Z">
-<meta property="article:modified_time" content="2022-07-04T01:36:01.953Z">
+<meta property="article:published_time" content="2022-08-13T14:18:33.000Z">
+<meta property="article:modified_time" content="2022-08-16T01:22:47.737Z">
 <meta property="article:author" content="Sun0405">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="cs61a">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2021/12/08/hello-world/">
+<link rel="canonical" href="http://example.com/2022/08/13/Scheme-project/">
 
 
 <script id="page-configurations">
@@ -45,7 +47,7 @@
   };
 </script>
 
-  <title>Hello World | Sun0405's Blog</title>
+  <title>Scheme-project | Sun0405's Blog</title>
   
 
 
@@ -160,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/08/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/13/Scheme-project/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -173,7 +175,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          Scheme-project
         </h1>
 
         <div class="post-meta">
@@ -183,14 +185,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-12-08 10:59:14" itemprop="dateCreated datePublished" datetime="2021-12-08T10:59:14+08:00">2021-12-08</time>
+              <time title="创建时间：2022-08-13 22:18:33" itemprop="dateCreated datePublished" datetime="2022-08-13T22:18:33+08:00">2022-08-13</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-07-04 09:36:01" itemprop="dateModified" datetime="2022-07-04T09:36:01+08:00">2022-07-04</time>
+                <time title="修改时间：2022-08-16 09:22:47" itemprop="dateModified" datetime="2022-08-16T09:22:47+08:00">2022-08-16</time>
               </span>
 
           
@@ -204,10 +206,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Hello World!</p>
-<p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is my very first post. </p>
-<p><a target="_blank" rel="noopener" href="https://sun0405.github.io/">The blog</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/sun0405">My github</a></p>
+        <h1 id="Scheme-Project"><a href="#Scheme-Project" class="headerlink" title="Scheme Project"></a>Scheme Project</h1><p>这个项目主要是自己写一个<code>scheme</code>语言的解释器，对于我来说是一个全新的挑战，因为涉及到了很多以前的知识。</p>
+<p>用<code>python</code>来解释<code>scheme</code>语言：</p>
+<ul>
+<li>Parsing: 解析程序语言，分解为<code>Pair</code>类的实例，然后执行</li>
+<li>evaluate and apply: 执行与应用相互嵌套，参见part4</li>
+<li>Procedure: 对于scheme，procedure是一种函数，而在python中，procedure是一个实例，可以根据此实例来执行</li>
+<li>special forms: 除了初始函数与值外，我们应当能够应用一些自定义函数和特殊函数，这也是抽象的一部分</li>
+</ul>
+<h2 id="Evaluator"><a href="#Evaluator" class="headerlink" title="Evaluator"></a>Evaluator</h2><p>在这部分，我们将会研究以下几个特性：</p>
+<ul>
+<li>Symbol evaluation</li>
+<li>Calling built-in procedures</li>
+<li>Definitions</li>
+</ul>
+<h3 id="Frame"><a href="#Frame" class="headerlink" title="Frame"></a>Frame</h3><p>首先是框架（环境）：<code>Frame</code>类，每个frame创建时继承上一个frame，Global Frame的父框架是None。</p>
+<p>一个框架至少有两个实例属性：</p>
+<ul>
+<li>bindings: 一个字典类型，它联系了Scheme Symbol和Scheme value。</li>
+<li>parent: 父框架。</li>
+</ul>
+<p>而一个框架同时也有以下方法：</p>
+<ul>
+<li>define: 在一个frame实例中链接symbol和value</li>
+<li>lookup: 在一个框架下寻找symbol对于的value，如果没找到，那么在它的父框架中再寻找，如果始终无法找到，那么返回SchemeError。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">define</span>(<span class="params">self, symbol, value</span>):</span></span><br><span class="line">    self.bindings[symbol] = value</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lookup</span>(<span class="params">self, symbol</span>):</span></span><br><span class="line">    <span class="keyword">if</span> symbol <span class="keyword">in</span> self.bindings:</span><br><span class="line">        <span class="keyword">return</span> self.bindings[symbol]</span><br><span class="line">    <span class="keyword">if</span> self.parent != <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> self.parent.lookup(symbol)</span><br><span class="line">    <span class="keyword">raise</span> SchemeError(<span class="string">&#x27;unkown identifier: &#123;0&#125;&#x27;</span>.<span class="built_in">format</span>(symbol))</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -216,17 +241,21 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/cs61a/" rel="tag"># cs61a</a>
+          </div>
 
         
 
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2022/07/03/Cats/" rel="next" title="cs61a_Cats">
-      cs61a_Cats <i class="fa fa-chevron-right"></i>
+    <a href="/2022/08/13/Scheme-part4/" rel="prev" title="Scheme-part4">
+      <i class="fa fa-chevron-left"></i> Scheme-part4
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -285,6 +314,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Scheme-Project"><span class="nav-number">1.</span> <span class="nav-text">Scheme Project</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluator"><span class="nav-number">1.1.</span> <span class="nav-text">Evaluator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Frame"><span class="nav-number">1.1.1.</span> <span class="nav-text">Frame</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

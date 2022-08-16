@@ -157,6 +157,97 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/13/Scheme-project/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sun0405">
+      <meta itemprop="description" content="没有答案，时光荏苒">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sun0405's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/13/Scheme-project/" class="post-title-link" itemprop="url">Scheme-project</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-13 22:18:33" itemprop="dateCreated datePublished" datetime="2022-08-13T22:18:33+08:00">2022-08-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-16 09:22:47" itemprop="dateModified" datetime="2022-08-16T09:22:47+08:00">2022-08-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Scheme-Project"><a href="#Scheme-Project" class="headerlink" title="Scheme Project"></a>Scheme Project</h1><p>这个项目主要是自己写一个<code>scheme</code>语言的解释器，对于我来说是一个全新的挑战，因为涉及到了很多以前的知识。</p>
+<p>用<code>python</code>来解释<code>scheme</code>语言：</p>
+<ul>
+<li>Parsing: 解析程序语言，分解为<code>Pair</code>类的实例，然后执行</li>
+<li>evaluate and apply: 执行与应用相互嵌套，参见part4</li>
+<li>Procedure: 对于scheme，procedure是一种函数，而在python中，procedure是一个实例，可以根据此实例来执行</li>
+<li>special forms: 除了初始函数与值外，我们应当能够应用一些自定义函数和特殊函数，这也是抽象的一部分</li>
+</ul>
+<h2 id="Evaluator"><a href="#Evaluator" class="headerlink" title="Evaluator"></a>Evaluator</h2><p>在这部分，我们将会研究以下几个特性：</p>
+<ul>
+<li>Symbol evaluation</li>
+<li>Calling built-in procedures</li>
+<li>Definitions</li>
+</ul>
+<h3 id="Frame"><a href="#Frame" class="headerlink" title="Frame"></a>Frame</h3><p>首先是框架（环境）：<code>Frame</code>类，每个frame创建时继承上一个frame，Global Frame的父框架是None。</p>
+<p>一个框架至少有两个实例属性：</p>
+<ul>
+<li>bindings: 一个字典类型，它联系了Scheme Symbol和Scheme value。</li>
+<li>parent: 父框架。</li>
+</ul>
+<p>而一个框架同时也有以下方法：</p>
+<ul>
+<li>define: 在一个frame实例中链接symbol和value</li>
+<li>lookup: 在一个框架下寻找symbol对于的value，如果没找到，那么在它的父框架中再寻找，如果始终无法找到，那么返回SchemeError。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">define</span>(<span class="params">self, symbol, value</span>):</span></span><br><span class="line">    self.bindings[symbol] = value</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lookup</span>(<span class="params">self, symbol</span>):</span></span><br><span class="line">    <span class="keyword">if</span> symbol <span class="keyword">in</span> self.bindings:</span><br><span class="line">        <span class="keyword">return</span> self.bindings[symbol]</span><br><span class="line">    <span class="keyword">if</span> self.parent != <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> self.parent.lookup(symbol)</span><br><span class="line">    <span class="keyword">raise</span> SchemeError(<span class="string">&#x27;unkown identifier: &#123;0&#125;&#x27;</span>.<span class="built_in">format</span>(symbol))</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/13/Scheme-part4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -182,7 +273,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-08-13 20:58:30 / 修改时间：22:17:46" itemprop="dateCreated datePublished" datetime="2022-08-13T20:58:30+08:00">2022-08-13</time>
+              <time title="创建时间：2022-08-13 20:58:30 / 修改时间：22:21:53" itemprop="dateCreated datePublished" datetime="2022-08-13T20:58:30+08:00">2022-08-13</time>
             </span>
 
           
@@ -233,7 +324,7 @@
 <p><img src="http://composingprograms.com/img/factorial_machine.png"></p>
 <p>以类似的方式，我们可以将 Scheme 解释器视为一个非常特殊的机器，它将机器的描述作为输入。给定这个输入，解释器将自己配置为模拟所描述的机器。例如，如果我们为我们的评估器提供阶乘的定义，那么评估器将能够计算阶乘。</p>
 <p>从这个角度来看，我们的 Scheme 解释器被视为一台通用机器。当这些机器被描述为 Scheme 程序时，它会模仿其他机器。它充当由我们的编程语言操作的数据对象和编程语言本身之间的桥梁。用户在我们正在运行的 Scheme 解释器中键入一个 Scheme 表达式的图像。从用户的角度来看，诸如<code>(+ 2 2)</code>之类的输入表达式是编程语言中的表达式，解释器应该对其求值。然而，从 Scheme 解释器的角度来看，表达式只是一个单词的句子，要根据一组明确定义的规则进行操作。</p>
-<p>用户的程序是解释器的数据不必成为混淆的来源。事实上，有时忽略这种区别并让用户能够将数据对象显式评估为表达式是很方便的。在 Scheme 中，无论何时使用<code>运行</code> 过程，我们都会使用此工具。Python 中也存在类似的函数：<code>eval</code>函数将计算 Python 表达式，<code>exec</code>函数将执行 Python 语句。因此，</p>
+<p>用户的程序是解释器的数据不必成为混淆的来源。事实上，有时忽略这种区别并让用户能够将数据对象显式评估为表达式是很方便的。在 Scheme 中，无论何时使用运行过程，我们都会使用此工具。Python 中也存在类似的函数：<code>eval</code>函数将计算 Python 表达式，<code>exec</code>函数将执行 Python 语句。因此，</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">eval</span>(<span class="string">&#x27;2+2&#x27;</span>)</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
 
 <p>和</p>
@@ -1055,7 +1146,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
