@@ -292,7 +292,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-08 15:11:08" itemprop="dateModified" datetime="2023-11-08T15:11:08+08:00">2023-11-08</time>
+                <time title="修改时间：2023-11-08 15:22:15" itemprop="dateModified" datetime="2023-11-08T15:22:15+08:00">2023-11-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -344,7 +344,7 @@
 <li>缺点: 需要额外记录访问次数</li>
 </ul>
 <h3 id="2Q"><a href="#2Q" class="headerlink" title="2Q"></a>2Q</h3><p>与LRU-2类似,但不同的地方在于访问一次的队列使用FIFO, 而不是LRU.</p>
-<img src="figures/05-01.png" style="zoom:43%;" />
+<img src="/figures/05-01.png" style="zoom:43%;" />
 
 <h3 id="Second-Chance-FIFO"><a href="#Second-Chance-FIFO" class="headerlink" title="Second-Chance FIFO"></a>Second-Chance FIFO</h3><p>相当于给了每个frame两次置换机会, </p>
 <h3 id="CLOCK"><a href="#CLOCK" class="headerlink" title="CLOCK"></a>CLOCK</h3><p>也是Second-Chance的变种</p>
@@ -522,7 +522,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-08 15:08:20" itemprop="dateModified" datetime="2023-11-08T15:08:20+08:00">2023-11-08</time>
+                <time title="修改时间：2023-11-08 15:28:12" itemprop="dateModified" datetime="2023-11-08T15:28:12+08:00">2023-11-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -552,7 +552,7 @@
 <p>magnetic disks/disk arrays</p>
 <p>magnetic tapes, optical disks</p>
 <p>其所用时间逐步增加</p>
-<h3 id="典型磁盘结构"><a href="#典型磁盘结构" class="headerlink" title="典型磁盘结构"></a>典型磁盘结构</h3><p><img src="figures/03-01.png"></p>
+<h3 id="典型磁盘结构"><a href="#典型磁盘结构" class="headerlink" title="典型磁盘结构"></a>典型磁盘结构</h3><p><img src="/figures/03-01.png"></p>
 <p>其中, 盘片platter, 盘面surface, 磁头R/W head, 磁道track, 柱面cylinder, 扇区sector.</p>
 <h2 id="磁盘块存取时间"><a href="#磁盘块存取时间" class="headerlink" title="磁盘块存取时间"></a>磁盘块存取时间</h2><h3 id="块"><a href="#块" class="headerlink" title="块"></a>块</h3><ul>
 <li>OS/DBMS进行磁盘数据存取的最小逻辑单元, <strong>块由若干连续扇区构成</strong></li>
@@ -637,7 +637,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-08 15:01:25" itemprop="dateModified" datetime="2023-11-08T15:01:25+08:00">2023-11-08</time>
+                <time title="修改时间：2023-11-08 15:27:58" itemprop="dateModified" datetime="2023-11-08T15:27:58+08:00">2023-11-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -663,7 +663,7 @@
           <h1 id="关系数据库回顾"><a href="#关系数据库回顾" class="headerlink" title="关系数据库回顾"></a>关系数据库回顾</h1><h2 id="数据库体系结构"><a href="#数据库体系结构" class="headerlink" title="数据库体系结构"></a>数据库体系结构</h2><p>数据库体系结构是从模式的角度来描述一般数据库系统的概念和结构，可以用于解释特定数据库系统的内部结构，ANSI/SPARC体系结构——三级模式结构＋两级映象</p>
 <h3 id="数据库模式的概念"><a href="#数据库模式的概念" class="headerlink" title="数据库模式的概念"></a>数据库模式的概念</h3><p><strong>模式</strong>：数据库中全体数据的逻辑结构和特征的描述，它仅仅涉及类型的描述，不涉及具体的值。</p>
 <p><strong>实例</strong>：模式的一个具体值称为模式的一个实例。</p>
-<p><img src="figures%5C02-01.png" alt="image-20230923205204128"></p>
+<p><img src="/figures/02-01.png" alt="image-20230923205204128"></p>
 <h3 id="数据库的三级模式结构"><a href="#数据库的三级模式结构" class="headerlink" title="数据库的三级模式结构"></a>数据库的三级模式结构</h3><ul>
 <li>外模式</li>
 <li>概念模式</li>
@@ -677,9 +677,9 @@
 <p><strong>内模式</strong>：数据物理结构和存储方式的描述，如：记录的存储方式；索引按什么方式组织；数据是否加密？是否压缩存储？</p>
 <p>内模式不涉及物理块（或页）的大小，也不考虑具体设备的柱面或磁道大小；和概念模式一样，一个数据库也仅有一个内模式；通过内模式DDL定义。</p>
 <p><strong>内部视图</strong>：内模式的实例</p>
-<p><img src="figures%5C02-02.png" alt="image-20230923210234796"></p>
+<p><img src="/figures/02-02.png" alt="image-20230923210234796"></p>
 <h3 id="二级映象和数据独立性"><a href="#二级映象和数据独立性" class="headerlink" title="二级映象和数据独立性"></a>二级映象和数据独立性</h3><p>二级映象实现了三级模式结构直接按的联系和转换，这样就使得用户可以不必关注数据的底层表示方式和存储方式，逻辑化处理数据。</p>
-<p><img src="figures/02-03.png" alt="02-03"></p>
+<p><img src="/figures/02-03.png" alt="02-03"></p>
 
       
     </div>
@@ -730,7 +730,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-08 14:59:41" itemprop="dateModified" datetime="2023-11-08T14:59:41+08:00">2023-11-08</time>
+                <time title="修改时间：2023-11-08 15:27:26" itemprop="dateModified" datetime="2023-11-08T15:27:26+08:00">2023-11-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -785,7 +785,7 @@
 <li>数据厂商的产品通常是指DBMS</li>
 </ul>
 <p><strong>数据库系统（DBS）</strong>：在计算机系统中 引入了数据库后的系统，即采用了数据库技术的计算机系统</p>
-<p><img src="figures/01-01.png" alt="图一"></p>
+<p><img src="/figures/01-01.png" alt="图一"></p>
 <h3 id="SQL的基本组成"><a href="#SQL的基本组成" class="headerlink" title="SQL的基本组成"></a>SQL的基本组成</h3><ul>
 <li>DDL：定义基本表、视图操作、索引操作</li>
 <li>DML：数据记录操作</li>
