@@ -20,22 +20,24 @@
     var CONFIG = {"hostname":"sun0405.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Note 1This part is a summary of Lists, Data Abstraction, Trees.  ListsA list is a data structure that can store multiple elements. Each element can be any type, even a list itself. We write a list as">
+  <meta name="description" content="关系数据库回顾数据库体系结构数据库体系结构是从模式的角度来描述一般数据库系统的概念和结构，可以用于解释特定数据库系统的内部结构，ANSI&#x2F;SPARC体系结构——三级模式结构＋两级映象 数据库模式的概念模式：数据库中全体数据的逻辑结构和特征的描述，它仅仅涉及类型的描述，不涉及具体的值。 实例：模式的一个具体值称为模式的一个实例。  数据库的三级模式结构 外模式 概念模式 内模式  外模式：单个用户所">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cs61a_note1">
-<meta property="og:url" content="https://sun0405.github.io/2022/07/09/note1/index.html">
+<meta property="og:title" content="ABD-Study02">
+<meta property="og:url" content="https://sun0405.github.io/2023/10/12/ABD-study02/index.html">
 <meta property="og:site_name" content="Sun0405&#39;s Blog">
-<meta property="og:description" content="Note 1This part is a summary of Lists, Data Abstraction, Trees.  ListsA list is a data structure that can store multiple elements. Each element can be any type, even a list itself. We write a list as">
+<meta property="og:description" content="关系数据库回顾数据库体系结构数据库体系结构是从模式的角度来描述一般数据库系统的概念和结构，可以用于解释特定数据库系统的内部结构，ANSI&#x2F;SPARC体系结构——三级模式结构＋两级映象 数据库模式的概念模式：数据库中全体数据的逻辑结构和特征的描述，它仅仅涉及类型的描述，不涉及具体的值。 实例：模式的一个具体值称为模式的一个实例。  数据库的三级模式结构 外模式 概念模式 内模式  外模式：单个用户所">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20220709094242757.png">
-<meta property="article:published_time" content="2022-07-09T01:24:07.000Z">
-<meta property="article:modified_time" content="2023-10-11T14:56:08.467Z">
+<meta property="og:image" content="https://sun0405.github.io/2023/10/12/ABD-study02/figures%5C02-01.png">
+<meta property="og:image" content="https://sun0405.github.io/2023/10/12/ABD-study02/figures%5C02-02.png">
+<meta property="og:image" content="https://sun0405.github.io/2023/10/12/ABD-study02/figures/02-03.png">
+<meta property="article:published_time" content="2023-10-12T13:11:36.000Z">
+<meta property="article:modified_time" content="2023-11-08T07:01:25.598Z">
 <meta property="article:author" content="Sun0405">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="ABD">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20220709094242757.png">
+<meta name="twitter:image" content="https://sun0405.github.io/2023/10/12/ABD-study02/figures%5C02-01.png">
 
-<link rel="canonical" href="https://sun0405.github.io/2022/07/09/note1/">
+<link rel="canonical" href="https://sun0405.github.io/2023/10/12/ABD-study02/">
 
 
 <script id="page-configurations">
@@ -48,7 +50,7 @@
   };
 </script>
 
-  <title>cs61a_note1 | Sun0405's Blog</title>
+  <title>ABD-Study02 | Sun0405's Blog</title>
   
 
 
@@ -163,7 +165,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2022/07/09/note1/">
+    <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2023/10/12/ABD-study02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -176,7 +178,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          cs61a_note1
+          ABD-Study02
         </h1>
 
         <div class="post-meta">
@@ -186,14 +188,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-07-09 09:24:07" itemprop="dateCreated datePublished" datetime="2022-07-09T09:24:07+08:00">2022-07-09</time>
+              <time title="创建时间：2023-10-12 21:11:36" itemprop="dateCreated datePublished" datetime="2023-10-12T21:11:36+08:00">2023-10-12</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-11 22:56:08" itemprop="dateModified" datetime="2023-10-11T22:56:08+08:00">2023-10-11</time>
+                <time title="修改时间：2023-11-08 15:01:25" itemprop="dateModified" datetime="2023-11-08T15:01:25+08:00">2023-11-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -201,7 +203,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS61a/" itemprop="url" rel="index"><span itemprop="name">CS61a</span></a>
+                  <a href="/categories/ABD-USTC/" itemprop="url" rel="index"><span itemprop="name">ABD-USTC</span></a>
                 </span>
             </span>
 
@@ -216,42 +218,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Note-1"><a href="#Note-1" class="headerlink" title="Note 1"></a>Note 1</h1><p>This part is a summary of <strong>Lists, Data Abstraction, Trees.</strong> </p>
-<h2 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h2><p>A list is a data structure that can store multiple elements. Each element can be any type, even a list itself. We write a list as a comma-separated list of expressions in square brackets:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list_of_ints = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list_of_bools = [<span class="literal">True</span>, <span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">False</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>nested_lists = [<span class="number">1</span>, [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, [<span class="number">5</span>]]]</span><br></pre></td></tr></table></figure>
-
-<p>Each element in the list has an index, and you should notice that the first element in the list whose index is 0 but not 1.</p>
-<p>For <code>list[a: b]</code>, this is like as [a, b).</p>
-<h2 id="Data-Abstraction"><a href="#Data-Abstraction" class="headerlink" title="Data Abstraction"></a>Data Abstraction</h2><p>Data abstraction is a powerful concept in computer science that allows programmers to treat code as objects. For example, using code to represent cars, chairs, people, and so on. That way, programmers don’t have to worry about <em>how</em> code is implemented; they just have to know <em>what</em> it does.</p>
-<p><strong>What is the most important is: Constructors and Selectors</strong></p>
-<ul>
-<li><strong>Constructors: functions that build the abstract data type</strong> </li>
-<li><strong>Selectors: functions that retrieve information from the data type</strong></li>
+        <h1 id="关系数据库回顾"><a href="#关系数据库回顾" class="headerlink" title="关系数据库回顾"></a>关系数据库回顾</h1><h2 id="数据库体系结构"><a href="#数据库体系结构" class="headerlink" title="数据库体系结构"></a>数据库体系结构</h2><p>数据库体系结构是从模式的角度来描述一般数据库系统的概念和结构，可以用于解释特定数据库系统的内部结构，ANSI/SPARC体系结构——三级模式结构＋两级映象</p>
+<h3 id="数据库模式的概念"><a href="#数据库模式的概念" class="headerlink" title="数据库模式的概念"></a>数据库模式的概念</h3><p><strong>模式</strong>：数据库中全体数据的逻辑结构和特征的描述，它仅仅涉及类型的描述，不涉及具体的值。</p>
+<p><strong>实例</strong>：模式的一个具体值称为模式的一个实例。</p>
+<p><img src="figures%5C02-01.png" alt="image-20230923205204128"></p>
+<h3 id="数据库的三级模式结构"><a href="#数据库的三级模式结构" class="headerlink" title="数据库的三级模式结构"></a>数据库的三级模式结构</h3><ul>
+<li>外模式</li>
+<li>概念模式</li>
+<li>内模式</li>
 </ul>
-<h2 id="Trees"><a href="#Trees" class="headerlink" title="Trees"></a>Trees</h2><p>A <code>Tree</code> is a data structure that represents a hierarchy of information. </p>
-<p>A good simple is the file system:</p>
-<p><img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20220709094242757.png" alt="image-20220709094242757"></p>
-<p>As you can see, unlike trees in nature, the tree abstract data type is drawn with the root at the top and the leaves at the bottom.</p>
-<p>Here are some tree terminology:</p>
-<ul>
-<li><strong>root</strong>: the node at the top of the tree</li>
-<li><strong>label</strong>: the value in a node</li>
-<li><strong>branches</strong>: a list of trees directly under the tree’s root</li>
-<li><strong>leaf</strong>: a tree with zero branches</li>
-<li><strong>node</strong>: any location within the tree</li>
-</ul>
-<p><em>Some general functions:</em></p>
-<ul>
-<li><code>tree(label, [branches = [])</code></li>
-<li><code>label(tree)</code></li>
-<li><code>branches(tree)</code></li>
-<li><code>is_tree</code></li>
-<li><code>is_leaf</code></li>
-</ul>
-<p>When using <code>tree</code>structure, a recursive idea is often used. Because a tree is a recursive structure.</p>
-<p>Like this:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_leaves</span>(<span class="params">t</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Returns the number of leaf nodes in T.&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> is_leaf(t):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        leaves_under = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> b <span class="keyword">in</span> branches(t):</span><br><span class="line">            leaves_under += count_leaves(b)</span><br><span class="line">        <span class="keyword">return</span> leaves_under</span><br></pre></td></tr></table></figure>
-
+<p><strong>外模式</strong>：单个用户所看到的局部数据的逻辑结构和特征的描述；对用户而言，外模式就是数据库；建立在概念模式之上，同一模式可有多个不同的外模式；通过子模式DDL进行定义</p>
+<p><strong>外部视图</strong>：外模式的实例</p>
+<p><strong>概念模式</strong>：数据库中全体数据的逻辑结构和特征的描述 ，如：数据记录由哪些数据项构成；数据项的名字、类型、取值范围；数据之间的联系、数据的完整性等。</p>
+<p>概念模式不涉及硬件环境，且一个数据库只有一个概念模式。通过模式DDL进行定义</p>
+<p><strong>概念视图</strong>：概念模式的实例</p>
+<p><strong>内模式</strong>：数据物理结构和存储方式的描述，如：记录的存储方式；索引按什么方式组织；数据是否加密？是否压缩存储？</p>
+<p>内模式不涉及物理块（或页）的大小，也不考虑具体设备的柱面或磁道大小；和概念模式一样，一个数据库也仅有一个内模式；通过内模式DDL定义。</p>
+<p><strong>内部视图</strong>：内模式的实例</p>
+<p><img src="figures%5C02-02.png" alt="image-20230923210234796"></p>
+<h3 id="二级映象和数据独立性"><a href="#二级映象和数据独立性" class="headerlink" title="二级映象和数据独立性"></a>二级映象和数据独立性</h3><p>二级映象实现了三级模式结构直接按的联系和转换，这样就使得用户可以不必关注数据的底层表示方式和存储方式，逻辑化处理数据。</p>
+<p><img src="figures/02-03.png" alt="02-03"></p>
 
     </div>
 
@@ -261,7 +247,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/ABD/" rel="tag"># ABD</a>
           </div>
 
         
@@ -270,12 +256,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/07/03/Cats/" rel="prev" title="cs61a_Cats">
-      <i class="fa fa-chevron-left"></i> cs61a_Cats
+    <a href="/2023/10/11/ABD-study01/" rel="prev" title="ABD-Study01">
+      <i class="fa fa-chevron-left"></i> ABD-Study01
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/07/17/cs61a-Ants/" rel="next" title="cs61a_Ants">
-      cs61a_Ants <i class="fa fa-chevron-right"></i>
+    <a href="/2023/10/15/ABD-study03/" rel="next" title="ABD-Study03">
+      ABD-Study03 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -335,7 +321,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Note-1"><span class="nav-number">1.</span> <span class="nav-text">Note 1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lists"><span class="nav-number">1.1.</span> <span class="nav-text">Lists</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Abstraction"><span class="nav-number">1.2.</span> <span class="nav-text">Data Abstraction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Trees"><span class="nav-number">1.3.</span> <span class="nav-text">Trees</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">关系数据库回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">数据库体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.1.</span> <span class="nav-text">数据库模式的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E7%BA%A7%E6%A8%A1%E5%BC%8F%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.2.</span> <span class="nav-text">数据库的三级模式结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BA%A7%E6%98%A0%E8%B1%A1%E5%92%8C%E6%95%B0%E6%8D%AE%E7%8B%AC%E7%AB%8B%E6%80%A7"><span class="nav-number">1.1.3.</span> <span class="nav-text">二级映象和数据独立性</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -157,6 +157,548 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2023/11/05/ABD-study06/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sun0405">
+      <meta itemprop="description" content="没有答案，时光荏苒">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sun0405's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/05/ABD-study06/" class="post-title-link" itemprop="url">ABD-Study06</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-05 11:11:36" itemprop="dateCreated datePublished" datetime="2023-11-05T11:11:36+08:00">2023-11-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-08 15:11:27" itemprop="dateModified" datetime="2023-11-08T15:11:27+08:00">2023-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ABD-USTC/" itemprop="url" rel="index"><span itemprop="name">ABD-USTC</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Index-Structures"><a href="#Index-Structures" class="headerlink" title="Index Structures"></a>Index Structures</h1><p>本章主要介绍索引, 分为以下章节:</p>
+<ul>
+<li>顺序文件上的索引</li>
+<li>辅助索引</li>
+<li>一维索引: B+树, Hash Table</li>
+<li>多维索引: R-tree, 网格文件, 分段Hash</li>
+</ul>
+<h2 id="顺序文件的索引"><a href="#顺序文件的索引" class="headerlink" title="顺序文件的索引"></a>顺序文件的索引</h2><p>记录按照查找键排序</p>
+<h3 id="密集索引"><a href="#密集索引" class="headerlink" title="密集索引"></a>密集索引</h3><p>每个记录都有一个索引项, 索引项按照查找键排序.</p>
+<p>为什么要用密集索引?</p>
+<ul>
+<li>记录通常比索引项要大</li>
+<li>索引可以常驻内存</li>
+<li>有查找键值为K的记录是否存在, 不需要访问磁盘块数据</li>
+</ul>
+<p>缺点: <strong>索引占用太多空间</strong> –&gt;用稀疏索引来进行优化</p>
+<h3 id="稀疏索引"><a href="#稀疏索引" class="headerlink" title="稀疏索引"></a>稀疏索引</h3><p>为了降低空间占用, 我们使用稀疏索引</p>
+<p>仅部分记录有索引项, 一般情况下为每个数据块的第一个记录建立索引, 即不是给所有的记录都建立索引, 而是为每个块建立一个索引, 查找的时候可以先找到对应的数据块, 再在块中进行查找对应的记录.</p>
+<p>对无序的情况不太适用</p>
+<p>优点:</p>
+<ul>
+<li>节省了索引空间</li>
+<li>对同样的记录, 稀疏索引可以使用更少的索引项</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>对应”是否存在键值为K的记录”, 需要查找磁盘块数据</li>
+</ul>
+<h3 id="多级索引"><a href="#多级索引" class="headerlink" title="多级索引"></a>多级索引</h3><p>索引上再建索引, 如二级索引, 三级索引等</p>
+<p>维护代价高</p>
+<p>查找性能好, 修改性能差</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2023/10/29/ABD-study05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sun0405">
+      <meta itemprop="description" content="没有答案，时光荏苒">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sun0405's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/29/ABD-study05/" class="post-title-link" itemprop="url">ABD-Study05</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-29 21:11:36" itemprop="dateCreated datePublished" datetime="2023-10-29T21:11:36+08:00">2023-10-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-08 15:11:08" itemprop="dateModified" datetime="2023-11-08T15:11:08+08:00">2023-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ABD-USTC/" itemprop="url" rel="index"><span itemprop="name">ABD-USTC</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Buffer-Management"><a href="#Buffer-Management" class="headerlink" title="Buffer Management"></a>Buffer Management</h1><p>旨在: 最小化磁盘的I/O次数, 保持最可能被访问的在内存中.</p>
+<h2 id="缓冲区结构"><a href="#缓冲区结构" class="headerlink" title="缓冲区结构"></a>缓冲区结构</h2><h2 id="缓冲区替换策略"><a href="#缓冲区替换策略" class="headerlink" title="缓冲区替换策略"></a>缓冲区替换策略</h2><h3 id="理论最优算法-OPT算法"><a href="#理论最优算法-OPT算法" class="headerlink" title="理论最优算法: OPT算法"></a>理论最优算法: OPT算法</h3><p>OPT算法也称为Belady’s算法</p>
+<p>每次都置换以后永远也用不到的页面, 若没有则淘汰最久以后再用到的页面; OPT算法必须预先知道全部的页面访问序列, 但再实际的DBMS/OS中是无法实现的, 因此仅有理论意义.</p>
+<p>作用: 可以在实验中作为算法性能的上界加以对比</p>
+<h3 id="LRU"><a href="#LRU" class="headerlink" title="LRU"></a>LRU</h3><p>所以的frame按照最近一次访问时间排列成一个链表</p>
+<p>LRU—-()—-()—-()– &lt;—MRU</p>
+<p>基于时间局部性假设: 越是最近访问的在未来被访问的概率越高, 总是替换LRU端的frame</p>
+<p>优点:</p>
+<ul>
+<li>能很好地作用于流行的页面</li>
+<li>在置换时的复杂度是O(1)</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>缓存污染, LRU+重复序列扫描, 因为它只考虑最近的一次访问时间.</li>
+<li>开销: 每次都要修改LRU列表</li>
+<li>如果访问不满足时间局部性则性能较差</li>
+<li>如果仅考虑最近一次访问, 则不考虑访问频率</li>
+</ul>
+<h3 id="LRU-K"><a href="#LRU-K" class="headerlink" title="LRU-K"></a>LRU-K</h3><p>在LRU基础上考虑了频率问题</p>
+<p>如果某个frame的访问次数达到了k次以上, 则应当尽量不置换</p>
+<ul>
+<li>维护2个LRU链表, 一个是访问次数小于K的, 一个是访问次数K次以上的</li>
+<li>优先安装LRU策略置换小于K次的链表</li>
+<li>保证高频访问的页能够尽量在BUFFER中</li>
+<li>K并非越大越好, 一般为2即可</li>
+<li>缺点: 需要额外记录访问次数</li>
+</ul>
+<h3 id="2Q"><a href="#2Q" class="headerlink" title="2Q"></a>2Q</h3><p>与LRU-2类似,但不同的地方在于访问一次的队列使用FIFO, 而不是LRU.</p>
+<img src="figures/05-01.png" style="zoom:43%;" />
+
+<h3 id="Second-Chance-FIFO"><a href="#Second-Chance-FIFO" class="headerlink" title="Second-Chance FIFO"></a>Second-Chance FIFO</h3><p>相当于给了每个frame两次置换机会, </p>
+<h3 id="CLOCK"><a href="#CLOCK" class="headerlink" title="CLOCK"></a>CLOCK</h3><p>也是Second-Chance的变种</p>
+<h3 id="SSD上的置换算法"><a href="#SSD上的置换算法" class="headerlink" title="SSD上的置换算法"></a>SSD上的置换算法</h3><p>传统的置换算法强调命中率, 但是SSD上的略有区别.</p>
+<ul>
+<li>闪存: 读快写慢, 写次数有限(寿命限制)</li>
+</ul>
+<p>减少缓存置换中对闪存的写是一个重要指标</p>
+<ul>
+<li>SSD-aware缓存算法</li>
+</ul>
+<p>首先考虑改进<strong>LRU</strong>, 即有CFLRU算法(clean-first), 分为clean page, dirty page</p>
+<p>LRU-WSR: clean-first+cold flag, 置换: clean &gt; cold dirty &gt; hot dirty, 冷热数据分类, 即考虑访问频率. 但是这样做对空间的占用比较大. 还有新鲜程度, 即时间和频率都要注意, 用一个行数来进行”老化”, </p>
+<p>AD-LRU:</p>
+<h3 id="为何不使用OS缓冲区管理"><a href="#为何不使用OS缓冲区管理" class="headerlink" title="为何不使用OS缓冲区管理"></a>为何不使用OS缓冲区管理</h3><p>DBMS经常能预测访问模强制式:</p>
+<ul>
+<li>可以使用更专门的缓冲区替换策略</li>
+<li>有利于pre-fetch(预取)策略的有效使用</li>
+</ul>
+<p>但文件系统是难以预测的, 以文件为基础进行管理.</p>
+<p>DBMS需要强制写回磁盘能力, OS的缓冲写回一般通过记录写请求来实现, 实际的磁盘修改推迟, 因此不能保证写顺序.</p>
+<h2 id="缓冲区管理器的实现"><a href="#缓冲区管理器的实现" class="headerlink" title="缓冲区管理器的实现"></a>缓冲区管理器的实现</h2><p>将key的请求转化为Page请求.</p>
+<p>record请求 -&gt; frame请求 -&gt; page请求</p>
+<h3 id="错误的记录操作实现例子"><a href="#错误的记录操作实现例子" class="headerlink" title="错误的记录操作实现例子"></a>错误的记录操作实现例子</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">fopen();</span><br><span class="line">fseek();</span><br><span class="line">fwrite();</span><br><span class="line">```</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Buffer中Frame的查找"><a href="#Buffer中Frame的查找" class="headerlink" title="Buffer中Frame的查找"></a>Buffer中Frame的查找</h3><p>读磁盘块时: 根据page_id来确定在Buffer中是否已经存在frame</p>
+<p>写磁盘块时: 要根据frame_id来快速找到文件中对应的page_id</p>
+<p><code>y = hash(page)</code></p>
+<p>要解决fram(page_id)中page_id的大空间问题, 用hash表</p>
+<p>首先, 要维护Buffer中所有frame的维护信息, 如:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">BCB</span> &#123;</span></span><br><span class="line">	BCB();</span><br><span class="line">    <span class="keyword">int</span> page_id;</span><br><span class="line">    <span class="keyword">int</span> frame_id;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    <span class="keyword">int</span> time;</span><br><span class="line">    <span class="keyword">int</span> dirty;</span><br><span class="line">    BCB * next;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>建立frame-page之间的索引</p>
+<p>若用Hash Table, 需要建立2个</p>
+<ul>
+<li>BCB HTable</li>
+<li>int HTable</li>
+</ul>
+<h3 id="Buffer-Manager的基本功能"><a href="#Buffer-Manager的基本功能" class="headerlink" title="Buffer Manager的基本功能"></a>Buffer Manager的基本功能</h3><ul>
+<li>FixPage(int page_id)</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2023/10/22/ABD-study04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sun0405">
+      <meta itemprop="description" content="没有答案，时光荏苒">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sun0405's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/22/ABD-study04/" class="post-title-link" itemprop="url">ABD-Study04</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-22 21:11:36" itemprop="dateCreated datePublished" datetime="2023-10-22T21:11:36+08:00">2023-10-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-08 15:10:48" itemprop="dateModified" datetime="2023-11-08T15:10:48+08:00">2023-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ABD-USTC/" itemprop="url" rel="index"><span itemprop="name">ABD-USTC</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Data-Representation"><a href="#Data-Representation" class="headerlink" title="Data Representation"></a>Data Representation</h1><h3 id="SQL-sever文件组织"><a href="#SQL-sever文件组织" class="headerlink" title="SQL sever文件组织"></a>SQL sever文件组织</h3><p><strong>bulk-loading</strong>:批量载入</p>
+<p>数据文件的页按顺序编号, 首页为0; 每个文件有一个文件ID号.<br>因此在数据库中唯一标识一页需要使用<strong>文件ID+页码</strong>.</p>
+<p>即一个页码下面有很多个文件ID</p>
+<p>老师将了一些关于数据的读写性能相关的东西, 比如B+ tree和LSM tree等. 索引结构不同</p>
+<h4 id="文件的起始结构"><a href="#文件的起始结构" class="headerlink" title="文件的起始结构"></a>文件的起始结构</h4><p>文件头-&gt;PFS页-&gt;GAM页-&gt;SGAM页</p>
+<p><strong>PFS页</strong>: 可用空间. 每一页用1B的位图来进行判断, 记录有以下几种情况: 空的, 1-50%已满, 51-80%已满, 81-95%已满, 96-100%已满. 这是为了节约空间, 提高性能.</p>
+<p><strong>GAM页</strong>: 全局分配映射表(GAM)页用来记录已分配的扩展盘区, GAM对所涵盖区间内的每个扩展盘区都有一位, 若为1则是扩展盘区可用; 若为0则是已分配.</p>
+<p><strong>SGAM页</strong>: 共享全局分配映射表(SGAM), 记录特定的盘区. 特定盘区: 用作混合盘区且至少有个未使用的页. 若为1则该扩展盘区就用作混合扩展盘区且有可用的页, 若为0则不用作混合扩展盘区或所有页正在被使用中 .</p>
+<p><em>若SGAM为1, 则说明有页可以插入, 但如何插入呢, 这个时候就要使用PFS了</em></p>
+<h4 id="表的组织"><a href="#表的组织" class="headerlink" title="表的组织"></a>表的组织</h4><p>IAM</p>
+<p>数据页之间唯一的逻辑连接是记录在IAM页内的连接. </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2023/10/15/ABD-study03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sun0405">
+      <meta itemprop="description" content="没有答案，时光荏苒">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sun0405's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/15/ABD-study03/" class="post-title-link" itemprop="url">ABD-Study03</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-15 21:11:36" itemprop="dateCreated datePublished" datetime="2023-10-15T21:11:36+08:00">2023-10-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-08 15:08:20" itemprop="dateModified" datetime="2023-11-08T15:08:20+08:00">2023-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ABD-USTC/" itemprop="url" rel="index"><span itemprop="name">ABD-USTC</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Data-Storage"><a href="#Data-Storage" class="headerlink" title="Data Storage"></a>Data Storage</h1><h2 id="存储器结构"><a href="#存储器结构" class="headerlink" title="存储器结构"></a>存储器结构</h2><p>由上而下分别为:</p>
+<p>main memory</p>
+<p>extended memory</p>
+<p>solid state disks, disk cache</p>
+<p>magnetic disks/disk arrays</p>
+<p>magnetic tapes, optical disks</p>
+<p>其所用时间逐步增加</p>
+<h3 id="典型磁盘结构"><a href="#典型磁盘结构" class="headerlink" title="典型磁盘结构"></a>典型磁盘结构</h3><p><img src="figures/03-01.png"></p>
+<p>其中, 盘片platter, 盘面surface, 磁头R/W head, 磁道track, 柱面cylinder, 扇区sector.</p>
+<h2 id="磁盘块存取时间"><a href="#磁盘块存取时间" class="headerlink" title="磁盘块存取时间"></a>磁盘块存取时间</h2><h3 id="块"><a href="#块" class="headerlink" title="块"></a>块</h3><ul>
+<li>OS/DBMS进行磁盘数据存取的最小逻辑单元, <strong>块由若干连续扇区构成</strong></li>
+<li>块是<strong>DBMS</strong>中数据存取的最小单元</li>
+<li>扇区是<strong>磁盘</strong>中数据存储的最小单元</li>
+</ul>
+<h3 id="读块时间"><a href="#读块时间" class="headerlink" title="读块时间"></a>读块时间</h3><p>$$<br>Time = 寻道时间S + 旋转延迟R + 传输时间T + 其他延迟<br>$$</p>
+<ul>
+<li>寻道时间: 磁头定位到对应柱面所花费的时间, 与横跨柱面个数正相关</li>
+<li>平均寻道时间: 假设随机跨柱面的情况下,寻道时间的期望值,一般为10ms-40ms之间</li>
+<li>旋转延迟: 磁盘传动到块的第一个扇区到达磁头所需的时间, 假设磁盘转速为x RPM, 那么对应的平均旋转延迟为$\frac{60000}{2x}$(ms)</li>
+<li>平均时间维旋转1/2周的时间</li>
+<li>传输延迟:定位到对应扇区后,读取扇区内数据所需要的延时(以及转过块间间隙所需要的时间).假设单个磁道可以存储M字节的数据,且每t时间转一周,那么假设我们需要读取m大小的数据,所需要的传输时间为$\frac{mt}{M}$</li>
+</ul>
+<h3 id="如何读取下一块"><a href="#如何读取下一块" class="headerlink" title="如何读取下一块?"></a>如何读取下一块?</h3><ol>
+<li>下一块在同一柱面上: time = 旋转延迟+传输延迟+其他</li>
+<li>不在同一柱面: 寻道+旋转+传输+其他</li>
+</ol>
+<h3 id="写块"><a href="#写块" class="headerlink" title="写块"></a>写块</h3><ul>
+<li>与读块类似</li>
+<li>如果需要校验块是否正确写入, 则需要加上一次旋转时间和一次块传输时间.</li>
+</ul>
+<h3 id="块修改"><a href="#块修改" class="headerlink" title="块修改"></a>块修改</h3><p>将块读入主存-&gt;在主存中完成修改-&gt;将块重新写入磁盘</p>
+<h3 id="块地址"><a href="#块地址" class="headerlink" title="块地址"></a>块地址</h3><p>物理设备号, 柱面号, 盘面号, 扇区号</p>
+<h2 id="磁盘例子-Megatron747"><a href="#磁盘例子-Megatron747" class="headerlink" title="磁盘例子: Megatron747"></a>磁盘例子: Megatron747</h2><p>以megatron747为例子来对存取时间等进行分析</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li>3.5 inch</li>
+<li>3840RPM</li>
+<li>8 surfaces</li>
+<li>8192 tracks/surface</li>
+<li>256 sevtors/track</li>
+<li>512 bytes/sector</li>
+<li>大小: 8<em>8192</em>256*512 = 8GB</li>
+</ul>
+<h3 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2023/10/12/ABD-study02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sun0405">
+      <meta itemprop="description" content="没有答案，时光荏苒">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sun0405's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/12/ABD-study02/" class="post-title-link" itemprop="url">ABD-Study02</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-12 21:11:36" itemprop="dateCreated datePublished" datetime="2023-10-12T21:11:36+08:00">2023-10-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-08 15:01:25" itemprop="dateModified" datetime="2023-11-08T15:01:25+08:00">2023-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ABD-USTC/" itemprop="url" rel="index"><span itemprop="name">ABD-USTC</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="关系数据库回顾"><a href="#关系数据库回顾" class="headerlink" title="关系数据库回顾"></a>关系数据库回顾</h1><h2 id="数据库体系结构"><a href="#数据库体系结构" class="headerlink" title="数据库体系结构"></a>数据库体系结构</h2><p>数据库体系结构是从模式的角度来描述一般数据库系统的概念和结构，可以用于解释特定数据库系统的内部结构，ANSI/SPARC体系结构——三级模式结构＋两级映象</p>
+<h3 id="数据库模式的概念"><a href="#数据库模式的概念" class="headerlink" title="数据库模式的概念"></a>数据库模式的概念</h3><p><strong>模式</strong>：数据库中全体数据的逻辑结构和特征的描述，它仅仅涉及类型的描述，不涉及具体的值。</p>
+<p><strong>实例</strong>：模式的一个具体值称为模式的一个实例。</p>
+<p><img src="figures%5C02-01.png" alt="image-20230923205204128"></p>
+<h3 id="数据库的三级模式结构"><a href="#数据库的三级模式结构" class="headerlink" title="数据库的三级模式结构"></a>数据库的三级模式结构</h3><ul>
+<li>外模式</li>
+<li>概念模式</li>
+<li>内模式</li>
+</ul>
+<p><strong>外模式</strong>：单个用户所看到的局部数据的逻辑结构和特征的描述；对用户而言，外模式就是数据库；建立在概念模式之上，同一模式可有多个不同的外模式；通过子模式DDL进行定义</p>
+<p><strong>外部视图</strong>：外模式的实例</p>
+<p><strong>概念模式</strong>：数据库中全体数据的逻辑结构和特征的描述 ，如：数据记录由哪些数据项构成；数据项的名字、类型、取值范围；数据之间的联系、数据的完整性等。</p>
+<p>概念模式不涉及硬件环境，且一个数据库只有一个概念模式。通过模式DDL进行定义</p>
+<p><strong>概念视图</strong>：概念模式的实例</p>
+<p><strong>内模式</strong>：数据物理结构和存储方式的描述，如：记录的存储方式；索引按什么方式组织；数据是否加密？是否压缩存储？</p>
+<p>内模式不涉及物理块（或页）的大小，也不考虑具体设备的柱面或磁道大小；和概念模式一样，一个数据库也仅有一个内模式；通过内模式DDL定义。</p>
+<p><strong>内部视图</strong>：内模式的实例</p>
+<p><img src="figures%5C02-02.png" alt="image-20230923210234796"></p>
+<h3 id="二级映象和数据独立性"><a href="#二级映象和数据独立性" class="headerlink" title="二级映象和数据独立性"></a>二级映象和数据独立性</h3><p>二级映象实现了三级模式结构直接按的联系和转换，这样就使得用户可以不必关注数据的底层表示方式和存储方式，逻辑化处理数据。</p>
+<p><img src="figures/02-03.png" alt="02-03"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2023/10/11/ABD-study01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -180,10 +722,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-10-11 21:11:36 / 修改时间：23:18:27" itemprop="dateCreated datePublished" datetime="2023-10-11T21:11:36+08:00">2023-10-11</time>
+              <time title="创建时间：2023-10-11 21:11:36" itemprop="dateCreated datePublished" datetime="2023-10-11T21:11:36+08:00">2023-10-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-08 14:59:41" itemprop="dateModified" datetime="2023-11-08T14:59:41+08:00">2023-11-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -237,6 +785,7 @@
 <li>数据厂商的产品通常是指DBMS</li>
 </ul>
 <p><strong>数据库系统（DBS）</strong>：在计算机系统中 引入了数据库后的系统，即采用了数据库技术的计算机系统</p>
+<p><img src="figures/01-01.png" alt="图一"></p>
 <h3 id="SQL的基本组成"><a href="#SQL的基本组成" class="headerlink" title="SQL的基本组成"></a>SQL的基本组成</h3><ul>
 <li>DDL：定义基本表、视图操作、索引操作</li>
 <li>DML：数据记录操作</li>
@@ -777,451 +1326,11 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2022/08/09/Scheme-part1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Sun0405">
-      <meta itemprop="description" content="没有答案，时光荏苒">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sun0405's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/08/09/Scheme-part1/" class="post-title-link" itemprop="url">Scheme-part1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-08-09 10:19:13" itemprop="dateCreated datePublished" datetime="2022-08-09T10:19:13+08:00">2022-08-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-11 22:56:13" itemprop="dateModified" datetime="2023-10-11T22:56:13+08:00">2023-10-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS61a/" itemprop="url" rel="index"><span itemprop="name">CS61a</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Scheme-part1"><a href="#Scheme-part1" class="headerlink" title="Scheme-part1"></a>Scheme-part1</h1><p><code>Scheme</code>是一个著名的函数式编程语言，它是<code>Lisp</code>的一种形式。</p>
-<p>在学习<code>Sheme</code>的过程中，我们将对解释器即<code>interpreter</code>进行了解，并研究解释器的设计和他们在执行程序时创建的计算过程。程序语言只是文本的集合，只有通过解释器我们才能执行对应的计算。</p>
-<p>一般解释器都有一个共同的结构：两个相互递归的函数。</p>
-<ul>
-<li>一个评估环境中的表达式</li>
-<li>一个将函数应用于参数</li>
-</ul>
-<p>因为是相互递归的，所以在应用其中一个函数时需要应用更多的函数。</p>
-<h2 id="Scheme的语法"><a href="#Scheme的语法" class="headerlink" title="Scheme的语法"></a>Scheme的语法</h2><h3 id="Expressions"><a href="#Expressions" class="headerlink" title="Expressions"></a>Expressions</h3><p><code>Scheme</code>使用前缀表示法，运算符号在表达式前面，如：</p>
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">+</span></span> (<span class="name"><span class="builtin-name">*</span></span> <span class="number">3</span> <span class="number">5</span>) (<span class="name"><span class="builtin-name">-</span></span> <span class="number">10</span> <span class="number">6</span>))</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">+</span></span> (<span class="name"><span class="builtin-name">*</span></span> <span class="number">3</span></span><br><span class="line">      (<span class="name"><span class="builtin-name">+</span></span> (<span class="name"><span class="builtin-name">*</span></span> <span class="number">2</span> <span class="number">4</span>)</span><br><span class="line">         (<span class="name"><span class="builtin-name">+</span></span> <span class="number">3</span> <span class="number">5</span>)))</span><br><span class="line">   (<span class="name"><span class="builtin-name">+</span></span> (<span class="name"><span class="builtin-name">-</span></span> <span class="number">10</span> <span class="number">7</span>)</span><br><span class="line">      <span class="number">6</span>))</span><br></pre></td></tr></table></figure>
-
-<h3 id="Symbols"><a href="#Symbols" class="headerlink" title="Symbols"></a>Symbols</h3><p><code>Symbols</code>很像Python中的<code>name</code>，因为都不需要定义类型，且在<code>Scheme</code>中，<code>Symbol</code>也是一种值，而在<code>python</code>中仅仅作为表达式。</p>
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scm&gt; quotient      <span class="comment">; A name bound to a built-in procedure</span></span><br><span class="line">#[<span class="name"><span class="builtin-name">quotient</span></span>]</span><br><span class="line">scm&gt; <span class="symbol">&#x27;quotient</span>     <span class="comment">; An expression that evaluates to a symbol</span></span><br><span class="line">quotient</span><br><span class="line">scm&gt; <span class="symbol">&#x27;hello-world!</span></span><br><span class="line">hello-world!</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h3><p><code>Scheme</code>中的布尔值分别是<code>#t</code> <code>#f</code></p>
-<h3 id="特殊表达式"><a href="#特殊表达式" class="headerlink" title="特殊表达式"></a>特殊表达式</h3><h3 id="if表达式"><a href="#if表达式" class="headerlink" title="if表达式"></a>if表达式</h3><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">if</span></span> &lt;predicate&gt; &lt;if-true&gt; [<span class="name">if-false</span>])</span><br></pre></td></tr></table></figure>
-
-<p>先对判别式进行判别真假，然后执行对应的语句。</p>
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scm&gt; (<span class="name"><span class="builtin-name">if</span></span> (<span class="name"><span class="builtin-name">&gt;</span></span> x <span class="number">3</span>)</span><br><span class="line">         <span class="number">1</span></span><br><span class="line">         <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scm&gt; (<span class="name"><span class="builtin-name">if</span></span> (<span class="name"><span class="builtin-name">&lt;</span></span> x <span class="number">0</span>)</span><br><span class="line">         <span class="symbol">&#x27;negative</span></span><br><span class="line">         (<span class="name"><span class="builtin-name">if</span></span> (<span class="name"><span class="builtin-name">=</span></span> x <span class="number">0</span>)</span><br><span class="line">             <span class="symbol">&#x27;zero</span></span><br><span class="line">             <span class="symbol">&#x27;positive</span></span><br><span class="line">         )</span><br><span class="line"> )</span><br></pre></td></tr></table></figure>
-
-<h3 id="cond表达式"><a href="#cond表达式" class="headerlink" title="cond表达式"></a>cond表达式</h3><p><code>cond</code>有点像<code>python</code>中的<code>elif</code>，进行多种情况的判别。</p>
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scm&gt; (<span class="name"><span class="builtin-name">cond</span></span></span><br><span class="line">        ((<span class="name"><span class="builtin-name">&gt;</span></span> x <span class="number">0</span>) <span class="symbol">&#x27;positive</span>)</span><br><span class="line">        ((<span class="name"><span class="builtin-name">&lt;</span></span> x <span class="number">0</span>) <span class="symbol">&#x27;negative</span>)</span><br><span class="line">        (<span class="name"><span class="builtin-name">else</span></span> <span class="symbol">&#x27;zero</span>))</span><br></pre></td></tr></table></figure>
-
-<h3 id="define"><a href="#define" class="headerlink" title="define"></a>define</h3><p><code>define</code>是<code>scheme</code>中非常常用的语法，用来定义函数，常量等。作用和<code>python</code>中的<code>def</code>很像，但是作用更加广泛。</p>
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">define</span></span> &lt;name&gt; &lt;expression&gt;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scm&gt; (<span class="name"><span class="builtin-name">define</span></span> foo (<span class="name"><span class="builtin-name">lambda</span></span> (x y) (<span class="name"><span class="builtin-name">+</span></span> x y)))</span><br><span class="line">foo</span><br><span class="line">scm&gt; (<span class="name"><span class="builtin-name">define</span></span> (<span class="name">foo</span> x y) (<span class="name"><span class="builtin-name">+</span></span> x y))</span><br><span class="line">foo</span><br></pre></td></tr></table></figure>
-
-<h3 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h3><p>与<code>python</code>中的<code>lambda</code>很像，都是定义函数。</p>
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">lambda</span></span> (&lt;param1&gt;···) &lt;body&gt;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="begin"><a href="#begin" class="headerlink" title="begin"></a>begin</h3><p><code>begin</code>可以执行多个语句</p>
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">if</span></span> (<span class="name"><span class="builtin-name">&gt;</span></span> x <span class="number">10</span>) (<span class="name"><span class="builtin-name">begin</span></span></span><br><span class="line">                (<span class="name">print</span> <span class="symbol">&#x27;big</span>)</span><br><span class="line">                (<span class="name">print</span> <span class="symbol">&#x27;guy</span>))</span><br><span class="line">              (<span class="name"><span class="builtin-name">begin</span></span></span><br><span class="line">                (<span class="name">print</span> <span class="symbol">&#x27;small</span>)</span><br><span class="line">                (<span class="name">print</span> <span class="symbol">&#x27;fry</span>)))</span><br></pre></td></tr></table></figure>
-
-<h2 id="List-in-Scheme"><a href="#List-in-Scheme" class="headerlink" title="List in Scheme"></a>List in Scheme</h2><p>在<code>scheme</code>中，<code>cons</code>构造链表，而<code>nil</code>代表空list，如：</p>
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">cons</span></span> <span class="number">1</span> (<span class="name"><span class="builtin-name">cons</span></span> <span class="number">2</span> nil))</span><br></pre></td></tr></table></figure>
-
-<p>而读取是用<code>car</code>, <code>cdr</code>.</p>
-<ul>
-<li><code>car</code>返回list的第一个元素</li>
-<li><code>cdr</code>返回list的剩余部分</li>
-</ul>
-<h3 id="list语句"><a href="#list语句" class="headerlink" title="list语句"></a>list语句</h3><p><code>list</code>可以直接生成列表。</p>
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">list</span></span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Quote-Form"><a href="#Quote-Form" class="headerlink" title="Quote Form"></a>Quote Form</h3><p>同样，我们也可以使用<code>quote</code>来创建list。</p>
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scm&gt; &#x27;(<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>)</span><br><span class="line">(<span class="name">1</span> <span class="number">2</span> <span class="number">3</span>)</span><br><span class="line">scm&gt; &#x27;(cons <span class="number">1</span> <span class="number">2</span>)           <span class="comment">; Argument to quote is not evaluated</span></span><br><span class="line">(<span class="name"><span class="builtin-name">cons</span></span> <span class="number">1</span> <span class="number">2</span>)</span><br><span class="line">scm&gt; &#x27;(<span class="number">1</span> (<span class="number">2</span> <span class="number">3</span> <span class="number">4</span>))</span><br><span class="line">(<span class="name">1</span> (<span class="name">2</span> <span class="number">3</span> <span class="number">4</span>))</span><br></pre></td></tr></table></figure>
-
-<p>注意以下区别：</p>
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">define</span></span> a <span class="number">1</span>)</span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> b <span class="number">2</span>)</span><br><span class="line">(<span class="name"><span class="builtin-name">list</span></span> a b)</span><br><span class="line">(<span class="name">1</span> <span class="number">2</span>)</span><br><span class="line">(<span class="name"><span class="builtin-name">list</span></span> <span class="symbol">&#x27;a</span> <span class="symbol">&#x27;b</span>)</span><br><span class="line">(<span class="name">a</span> b)</span><br><span class="line">(<span class="name"><span class="builtin-name">list</span></span> <span class="symbol">&#x27;a</span> b)</span><br><span class="line">(<span class="name">a</span> <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
-<p>在不加引号时，程序自动执行里面表达式的值，但是当加了引号后，就不执行表达式，而是完整的返回这串字符。</p>
-<p><strong>因为程序语言都是文本，换句话说都是list，所以这个可以适用于很多应用</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2022/07/17/cs61a-Ants/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Sun0405">
-      <meta itemprop="description" content="没有答案，时光荏苒">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sun0405's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/17/cs61a-Ants/" class="post-title-link" itemprop="url">cs61a_Ants</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-07-17 09:12:25" itemprop="dateCreated datePublished" datetime="2022-07-17T09:12:25+08:00">2022-07-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-11 22:56:01" itemprop="dateModified" datetime="2023-10-11T22:56:01+08:00">2023-10-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS61a/" itemprop="url" rel="index"><span itemprop="name">CS61a</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Ants"><a href="#Ants" class="headerlink" title="Ants"></a>Ants</h1><p>此游戏是模仿植物大战僵尸的游戏，用蚂蚁和蜜蜂来代替植物与僵尸，大致玩法类似，相信大家都玩过。</p>
-<h2 id="Core-concepts"><a href="#Core-concepts" class="headerlink" title="Core concepts"></a>Core concepts</h2><p><strong>The colony</strong>:<br>This is where the game takes place. The colony consists of several <code>Place</code>s that are chained together to form a tunnel where bees can travel through. The colony also has some quantity of food which can be expended in order to place an ant in a tunnel.</p>
-<p><strong>Places</strong>:<br>A place links to another place to form a tunnel.The player can put a single ant into each place. However, there can be many bees in a single place.</p>
-<p><strong>The Hive</strong>:<br> This is the place where bees originate. Bees exit the beehive to enter the ant colony.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2022/07/09/note1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Sun0405">
-      <meta itemprop="description" content="没有答案，时光荏苒">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sun0405's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/09/note1/" class="post-title-link" itemprop="url">cs61a_note1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-07-09 09:24:07" itemprop="dateCreated datePublished" datetime="2022-07-09T09:24:07+08:00">2022-07-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-11 22:56:08" itemprop="dateModified" datetime="2023-10-11T22:56:08+08:00">2023-10-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS61a/" itemprop="url" rel="index"><span itemprop="name">CS61a</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Note-1"><a href="#Note-1" class="headerlink" title="Note 1"></a>Note 1</h1><p>This part is a summary of <strong>Lists, Data Abstraction, Trees.</strong> </p>
-<h2 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h2><p>A list is a data structure that can store multiple elements. Each element can be any type, even a list itself. We write a list as a comma-separated list of expressions in square brackets:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list_of_ints = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list_of_bools = [<span class="literal">True</span>, <span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">False</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>nested_lists = [<span class="number">1</span>, [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, [<span class="number">5</span>]]]</span><br></pre></td></tr></table></figure>
-
-<p>Each element in the list has an index, and you should notice that the first element in the list whose index is 0 but not 1.</p>
-<p>For <code>list[a: b]</code>, this is like as [a, b).</p>
-<h2 id="Data-Abstraction"><a href="#Data-Abstraction" class="headerlink" title="Data Abstraction"></a>Data Abstraction</h2><p>Data abstraction is a powerful concept in computer science that allows programmers to treat code as objects. For example, using code to represent cars, chairs, people, and so on. That way, programmers don’t have to worry about <em>how</em> code is implemented; they just have to know <em>what</em> it does.</p>
-<p><strong>What is the most important is: Constructors and Selectors</strong></p>
-<ul>
-<li><strong>Constructors: functions that build the abstract data type</strong> </li>
-<li><strong>Selectors: functions that retrieve information from the data type</strong></li>
-</ul>
-<h2 id="Trees"><a href="#Trees" class="headerlink" title="Trees"></a>Trees</h2><p>A <code>Tree</code> is a data structure that represents a hierarchy of information. </p>
-<p>A good simple is the file system:</p>
-<p><img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20220709094242757.png" alt="image-20220709094242757"></p>
-<p>As you can see, unlike trees in nature, the tree abstract data type is drawn with the root at the top and the leaves at the bottom.</p>
-<p>Here are some tree terminology:</p>
-<ul>
-<li><strong>root</strong>: the node at the top of the tree</li>
-<li><strong>label</strong>: the value in a node</li>
-<li><strong>branches</strong>: a list of trees directly under the tree’s root</li>
-<li><strong>leaf</strong>: a tree with zero branches</li>
-<li><strong>node</strong>: any location within the tree</li>
-</ul>
-<p><em>Some general functions:</em></p>
-<ul>
-<li><code>tree(label, [branches = [])</code></li>
-<li><code>label(tree)</code></li>
-<li><code>branches(tree)</code></li>
-<li><code>is_tree</code></li>
-<li><code>is_leaf</code></li>
-</ul>
-<p>When using <code>tree</code>structure, a recursive idea is often used. Because a tree is a recursive structure.</p>
-<p>Like this:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_leaves</span>(<span class="params">t</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Returns the number of leaf nodes in T.&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> is_leaf(t):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        leaves_under = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> b <span class="keyword">in</span> branches(t):</span><br><span class="line">            leaves_under += count_leaves(b)</span><br><span class="line">        <span class="keyword">return</span> leaves_under</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2022/07/03/Cats/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Sun0405">
-      <meta itemprop="description" content="没有答案，时光荏苒">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sun0405's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/03/Cats/" class="post-title-link" itemprop="url">cs61a_Cats</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-07-03 17:35:03" itemprop="dateCreated datePublished" datetime="2022-07-03T17:35:03+08:00">2022-07-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-11 22:55:53" itemprop="dateModified" datetime="2023-10-11T22:55:53+08:00">2023-10-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS61a/" itemprop="url" rel="index"><span itemprop="name">CS61a</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Cats"><a href="#Cats" class="headerlink" title="Cats"></a>Cats</h1><p><strong>Cats</strong> 项目的目标是开发一个打字测速器。</p>
-<p>这里是项目完成后的一个样品: <a target="_blank" rel="noopener" href="https://cats.cs61a.org/">Cats</a></p>
-<p>我们将此项目分成三部分来逐渐完成。你需要在这过程中陆续解决10个问题。</p>
-<h2 id="Prat-1-Typing"><a href="#Prat-1-Typing" class="headerlink" title="Prat 1:  Typing"></a>Prat 1:  Typing</h2><p>本部分主要是解决打字的速度和准确度问题。</p>
-<h3 id="Problem-1"><a href="#Problem-1" class="headerlink" title="Problem 1"></a>Problem 1</h3><p>实现<code>choose</code>函数，其中包含以下三个参数：</p>
-<ul>
-<li>a list of paragraphs</li>
-<li>a select function, which returns <code>Ture</code> for paragraphs that can be selected</li>
-<li>a non-negative index k</li>
-</ul>
-<p>函数<code>choose</code>将会返回第k个符合函数<code>select</code>的词组。</p>
-<p>如果没有这样的自然段存在（因为k太大了），函数返回空字符串。</p>
-<h3 id="Problem-2"><a href="#Problem-2" class="headerlink" title="Problem 2"></a>Problem 2</h3><p><code>about</code>是返回值为函数的一个函数。返回值函数可以用于<code>choose</code>函数，方便以后调用。</p>
-<p>此函数有一个参数<code>topic</code>，<code>topic</code>是一个字符串组，返回值函数是来判断词组中是否含有<code>topic</code>中的单词。</p>
-<p>Tips: 不分大小写和标点符号，且要学会使用<code>utils.py</code>函数。</p>
-<h3 id="Problem3"><a href="#Problem3" class="headerlink" title="Problem3"></a>Problem3</h3><p>实现<code>accuracy</code>函数，此函数引用了两个参数，<code>typed</code>和<code>reference</code>，返回值为<code>typed</code>与<code>reference</code>的匹配度。</p>
-<p>需要注意的是，当两者均为空时，匹配度为100，而一方为0时，匹配度为0。</p>
-<h3 id="Problem4"><a href="#Problem4" class="headerlink" title="Problem4"></a>Problem4</h3><p><code>wpm</code>函数，全称为word per minute, 是用来计算打字速度的函数，其中，他不是用的每个单词并不是指一个实际的单词，而是用5个字母来代替一个单词</p>
-<p><strong>至此，这个项目已经能简单的运行并测试你的打字速度了</strong></p>
-<h2 id="Part-2"><a href="#Part-2" class="headerlink" title="Part 2"></a>Part 2</h2><p>本部分主要是解决自动修正问题。</p>
-<h3 id="Problem-5"><a href="#Problem-5" class="headerlink" title="Problem 5"></a>Problem 5</h3><p>实现一个函数<code>autocorrect</code>， 这个函数有四个参数，分别是<code>typed_words</code>, <code>valid_words</code>, <code>diff_function</code> and <code>limit</code>。</p>
-<ul>
-<li>如果<code>typed_words</code>是包含在<code>valid_words</code>里面，那么此函数直接返回这个单词。</li>
-<li>如果存在差异，那么用<code>diff_function</code>来判断。</li>
-</ul>
-<p><code>diff_function</code>返回值为一个数字，一般情况是返回差异最小的单词，但是当<code>diff_function</code>的返回值大于<code>limit</code>时，返回<code>typed_word</code>。</p>
-<p><em>Hints: 尝试使用<code>max</code> 和<code>min</code>函数，已经可选择的<code>key</code>参数</em></p>
-<h3 id="Problem-6"><a href="#Problem-6" class="headerlink" title="Problem 6"></a>Problem 6</h3><p>实现函数<code>feline_flips</code>，这个函数可用于problem 5中的<code>diff_function</code>函数。</p>
-<p>先看需要替换的字母数，再加上样本和标准之间的长度差。</p>
-<p><em>使用递归</em></p>
-<h3 id="Problem-7"><a href="#Problem-7" class="headerlink" title="Problem 7"></a>Problem 7</h3><p>实现<code>minimum_mewtation</code>函数，这个函数返回从<code>start</code>到<code>goal</code>所需变化的最小步数。</p>
-<p>这里有三种情况：</p>
-<ul>
-<li>增加一个字母</li>
-<li>删除一个字母</li>
-<li>替换一个字母</li>
-</ul>
-<p>每个变化记为1.</p>
-<p>本函数已经提供了模板，是一个递归结构，里面包含三个递归函数，其中有一个递归函数与problem 6 中的<code>feline_flips</code>相似。</p>
-<p><strong>至此，现在的项目已经可以利用自动更正系统辅助打字了</strong></p>
-<h2 id="Part-3"><a href="#Part-3" class="headerlink" title="Part 3"></a>Part 3</h2><p>本部分主要是解决多人打字问题。</p>
-<h3 id="Problem-8"><a href="#Problem-8" class="headerlink" title="Problem 8"></a>Problem 8</h3><p>实现<code>report_progress</code>函数，参数为<code>sofar</code>, <code>prompt</code>, <code>user_id</code>和<code>upload</code>。其中，<code>prompt</code>中的单词不少于<code>sofar</code>。</p>
-<p>如何计算进度？在第一个错误词汇前拼写正确的单词数除以<code>prompt</code>的总单词数即可。</p>
-<h3 id="Problem-9"><a href="#Problem-9" class="headerlink" title="Problem 9"></a>Problem 9</h3><p>实现<code>time_per_word</code>函数，它的参数是<code>words</code>和<code>times_per_player</code>，都是列表。返回值为<code>match</code>。</p>
-<p><code>match</code>是一个抽象数据，里面包含<code>words</code>和<code>times</code>。其中，<code>times</code>是一个双重列表。<code>times[i][j]</code>表示第i个玩家拼写第j个单词的时间。</p>
-<p>这个问题主要是检测对于抽象数据的实现，而不是像以前的列表和字典一样，仅仅只是特定的数据结构。</p>
-<p><em>For example</em>: 如果<code>times_per_player = [[1, 3, 5], [2, 5, 6]]</code>, 那么对应的<code>match</code>应该是<code>[[2,2], [3, 1]]</code>。因为是由<code>(3-1)，(5-3)</code>得来的。</p>
-<h3 id="Problem-10"><a href="#Problem-10" class="headerlink" title="Problem 10"></a>Problem 10</h3><p>实现<code>fastest_words</code>函数，此函数返回玩家打字最快的单词。参数为<code>match</code>。</p>
-<p>需要注意的是，返回值是一个列表的列表，而且当两个玩家打字速度相同时，认为这个单词最快速度属于前一个玩家。</p>
-<p><code>match</code>是problem 9中的返回值，一个抽象数据。要学会使用<code>word_at</code>函数，参数是<code>match</code>和<code>word_index</code>。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 
 
@@ -1286,7 +1395,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
