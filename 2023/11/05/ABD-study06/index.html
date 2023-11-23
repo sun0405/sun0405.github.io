@@ -20,18 +20,37 @@
     var CONFIG = {"hostname":"sun0405.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Index Structures本章主要介绍索引, 分为以下章节:  顺序文件上的索引 辅助索引 一维索引: B+树, Hash Table 多维索引: R-tree, 网格文件, 分段Hash  顺序文件的索引记录按照查找键排序 密集索引每个记录都有一个索引项, 索引项按照查找键排序. 为什么要用密集索引?  记录通常比索引项要大 索引可以常驻内存 有查找键值为K的记录是否存在, 不需要访问磁盘">
+  <meta name="description" content="Index Structures本章主要介绍索引, 分为以下章节:  顺序文件上的索引 辅助索引 一维索引: B+树, Hash Table 多维索引: R-tree, 网格文件, 分段Hash  顺序文件的索引记录按照查找键排序 密集索引每个记录都有一个索引项, 索引项按照查找键排序.  为什么要用密集索引?  记录通常比索引项要大 索引可以常驻内存 有查找键值为K的记录是否存在, 不需要访问磁">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ABD-Study06">
 <meta property="og:url" content="https://sun0405.github.io/2023/11/05/ABD-study06/index.html">
 <meta property="og:site_name" content="Sun0405&#39;s Blog">
-<meta property="og:description" content="Index Structures本章主要介绍索引, 分为以下章节:  顺序文件上的索引 辅助索引 一维索引: B+树, Hash Table 多维索引: R-tree, 网格文件, 分段Hash  顺序文件的索引记录按照查找键排序 密集索引每个记录都有一个索引项, 索引项按照查找键排序. 为什么要用密集索引?  记录通常比索引项要大 索引可以常驻内存 有查找键值为K的记录是否存在, 不需要访问磁盘">
+<meta property="og:description" content="Index Structures本章主要介绍索引, 分为以下章节:  顺序文件上的索引 辅助索引 一维索引: B+树, Hash Table 多维索引: R-tree, 网格文件, 分段Hash  顺序文件的索引记录按照查找键排序 密集索引每个记录都有一个索引项, 索引项按照查找键排序.  为什么要用密集索引?  记录通常比索引项要大 索引可以常驻内存 有查找键值为K的记录是否存在, 不需要访问磁">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-01.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-02.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-03.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-04.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-05.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-06.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-07.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-08.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-09.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-10.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-11.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-12.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-13.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-14.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-15.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-16.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-17.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/06-18.png">
 <meta property="article:published_time" content="2023-11-05T03:11:36.000Z">
-<meta property="article:modified_time" content="2023-11-08T07:11:27.547Z">
+<meta property="article:modified_time" content="2023-11-23T12:46:12.852Z">
 <meta property="article:author" content="Sun0405">
 <meta property="article:tag" content="ABD">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sun0405.github.io/figures/06-01.png">
 
 <link rel="canonical" href="https://sun0405.github.io/2023/11/05/ABD-study06/">
 
@@ -191,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-08 15:11:27" itemprop="dateModified" datetime="2023-11-08T15:11:27+08:00">2023-11-08</time>
+                <time title="修改时间：2023-11-23 20:46:12" itemprop="dateModified" datetime="2023-11-23T20:46:12+08:00">2023-11-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -223,6 +242,7 @@
 </ul>
 <h2 id="顺序文件的索引"><a href="#顺序文件的索引" class="headerlink" title="顺序文件的索引"></a>顺序文件的索引</h2><p>记录按照查找键排序</p>
 <h3 id="密集索引"><a href="#密集索引" class="headerlink" title="密集索引"></a>密集索引</h3><p>每个记录都有一个索引项, 索引项按照查找键排序.</p>
+<p><img src="/figures/06-01.png" alt="图一"></p>
 <p>为什么要用密集索引?</p>
 <ul>
 <li>记录通常比索引项要大</li>
@@ -231,7 +251,8 @@
 </ul>
 <p>缺点: <strong>索引占用太多空间</strong> –&gt;用稀疏索引来进行优化</p>
 <h3 id="稀疏索引"><a href="#稀疏索引" class="headerlink" title="稀疏索引"></a>稀疏索引</h3><p>为了降低空间占用, 我们使用稀疏索引</p>
-<p>仅部分记录有索引项, 一般情况下为每个数据块的第一个记录建立索引, 即不是给所有的记录都建立索引, 而是为每个块建立一个索引, 查找的时候可以先找到对应的数据块, 再在块中进行查找对应的记录.</p>
+<p>仅部分记录有索引项, 一般情况下为<strong>每个数据块的第一个记录建立索引</strong>, 即不是给所有的记录都建立索引, 而是为每个块建立一个索引, 查找的时候可以先找到对应的数据块, 再在块中进行查找对应的记录.</p>
+<p><img src="/figures/06-02.png" alt="图二"></p>
 <p>对无序的情况不太适用</p>
 <p>优点:</p>
 <ul>
@@ -243,8 +264,116 @@
 <li>对应”是否存在键值为K的记录”, 需要查找磁盘块数据</li>
 </ul>
 <h3 id="多级索引"><a href="#多级索引" class="headerlink" title="多级索引"></a>多级索引</h3><p>索引上再建索引, 如二级索引, 三级索引等</p>
-<p>维护代价高</p>
-<p>查找性能好, 修改性能差</p>
+<p><img src="/figures/06-03.png" alt="图三"></p>
+<p>优点:</p>
+<ul>
+<li>一级索引可能很大而不能常驻内存</li>
+<li>二级索引更小, 可以常驻内存</li>
+<li>减少磁盘I/O次数</li>
+</ul>
+<p><strong>二级索引即可用稀疏索引</strong></p>
+<p>一般不考虑三级以上索引, 因为维护多级索引结构比较困难, 且有更好的索引结构—B+树</p>
+<h2 id="辅助索引"><a href="#辅助索引" class="headerlink" title="辅助索引"></a>辅助索引</h2><p>有助于查询键值</p>
+<p>主索引:</p>
+<ul>
+<li>顺序文件的索引</li>
+<li>记录按索引属性值<strong>有序</strong></li>
+<li>根据索引值可以确定记录的位置</li>
+</ul>
+<p>辅助索引:</p>
+<ul>
+<li>数据文件<strong>不需要按查找键有序</strong></li>
+<li>根据索引值不能确定记录在文件中的顺序</li>
+</ul>
+<h3 id="辅助索引的概念"><a href="#辅助索引的概念" class="headerlink" title="辅助索引的概念"></a>辅助索引的概念</h3><p>辅助索引只能是密集索引</p>
+<p><img src="/figures/06-04.png" alt="图四"></p>
+<h3 id="辅助索引中的间接桶"><a href="#辅助索引中的间接桶" class="headerlink" title="辅助索引中的间接桶"></a>辅助索引中的间接桶</h3><p>对于重复键值, 密集索引会浪费空间, 所以使用间接桶(介于辅助索引和数据文件之间)</p>
+<p><img src="/figures/06-05.png" alt="图五"></p>
+<p>从上图来看, 间接桶是将键值10对应的记录都集中在一个区域里, 这样方便查找</p>
+<h3 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h3><p>应用于文档检索</p>
+<p>不同之处:</p>
+<ul>
+<li>记录—-文档</li>
+<li>记录查找—-文档检索</li>
+<li>查找键—–文档中的词</li>
+</ul>
+<p>具体思路: 给每个检索词建立间接桶, 而桶的指针指向检索词出现的文档</p>
+<p><img src="/figures/06-06.png" alt="图六"></p>
+<h2 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h2><ul>
+<li>一种树形的多级索引结构</li>
+<li>树的层数与数据大小相关, 通常为3层</li>
+<li>所有结点格式相同: 即有n个值, n+1个指针</li>
+<li>所有叶节点位于同一层</li>
+</ul>
+<p><img src="/figures/06-07.png" alt="图七"></p>
+<p><img src="/figures/06-08.png" alt="图七"></p>
+<h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p>从根结点开始, 沿指针向下, 直到叶结点, 然后在叶结点中顺序查找</p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>首先查找插入叶结点, 若有空闲位置则插入, 若没有空间 则分裂叶结点, 而分裂叶结点的操作比较复杂</p>
+<ul>
+<li>叶结点的分裂可视作是父结点中插入一个子结点</li>
+<li>递归向上分裂</li>
+<li>分裂过程需要对父结点中的键加以调整</li>
+<li><strong>例外</strong>: 若根结点分裂, 则需要创建一个新的根结点</li>
+</ul>
+<p>例如: </p>
+<p><img src="/figures/06-09.png" alt="图九"></p>
+<p><img src="/figures/06-10.png" alt="图十"></p>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>首先查找要删除的键值, 删除; 若结点的键值填充低于规定值, 则进行调整:</p>
+<ul>
+<li>若相邻的叶结点中键填充高于规定值，则将其中一个键值移到该结点中</li>
+<li>否则，合并该结点与相邻结点(合并可视作在父结点中删除一个子结点)</li>
+<li>递归向上删除</li>
+</ul>
+<p>若删除的是叶节点中的最小键值, 则需要对父结点的键值加以调整</p>
+<p><img src="/figures/06-11.png" alt="图十一"></p>
+<h3 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h3><p>访问索引的I/O代价= 树高或0(常驻内存), 而一般树高不超过3, 所以索引I/O代价不超过3</p>
+<p>通常情况下, 根结点常驻内存, 所以索引代价I/O不超过2</p>
+<p>设块大小8KB，键2B（smallint），指针2B ，则一个块可放2048个索引项</p>
+<h2 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h2><p>散列函数对应桶(buckets), h: 查找键 -&gt; [0, 1, …]</p>
+<p>给定一个查找键K, 对应的记录必定位于h(K)中, 而若一个桶中仅有一块, 则I/O次数为1; 否则由参数B来决定, 平均 = 总块数/B</p>
+<p><img src="/figures/06-12.png" alt="图十二"></p>
+<h3 id="查找-1"><a href="#查找-1" class="headerlink" title="查找"></a>查找</h3><p>对于给定的散列键值k, 计算h(k); 根据h(k)定位桶; 查找桶中的块</p>
+<h3 id="散列表插入"><a href="#散列表插入" class="headerlink" title="散列表插入"></a>散列表插入</h3><p>计算插入记录的h(K), 定位桶; 若桶中有空间则插入, 否则创建一个溢出块并将记录置于溢出块中</p>
+<p><img src="/figures/06-13.png" alt="图十三"></p>
+<h3 id="删除-1"><a href="#删除-1" class="headerlink" title="删除"></a>删除</h3><p>根据给定键值K计算h(K)，定位桶和记录, 但如何回收溢出块？</p>
+<h3 id="空间利用率"><a href="#空间利用率" class="headerlink" title="空间利用率"></a>空间利用率</h3><p>实际键值数 / 所有桶可放置的键值数 </p>
+<ul>
+<li>&lt;50％：空间浪费</li>
+<li><blockquote>
+<p>80％：溢出问题</p>
+</blockquote>
+</li>
+<li> 50％到80％之间（GOOD！）</li>
+</ul>
+<h3 id="文件增长"><a href="#文件增长" class="headerlink" title="文件增长"></a>文件增长</h3><p>数据文件的增长是桶的溢出块增多, 增加了I/O</p>
+<p>解决办法: <strong>动态散列表</strong></p>
+<ol>
+<li>可扩展散列表: 成倍地增加桶数目</li>
+<li>线性散列表: 线性增加</li>
+</ol>
+<h3 id="可扩展散列表"><a href="#可扩展散列表" class="headerlink" title="可扩展散列表"></a>可扩展散列表</h3><p>可扩展散列表的每个桶中存储的关键字数量可以根据需要动态地调整。</p>
+<p>散列函数h(k)是一个b(足够大)位二进制序列 ，前i位表示桶的数目。i的值随数据文件的增长而增大</p>
+<p>b位二进制序列， h(k) 前i位用于区分桶; 前i位构成一个桶数组</p>
+<p><img src="/figures/06-14.png" alt="图十四"></p>
+<p>优点: 大部分情况下不存在着溢出块，因此当查找记录时，只需查找一个存储块。</p>
+<p>缺点: 桶增长速度快，可能会导致内存放不下整个桶数组，影响其他保存在主存中的数据，波动较大。</p>
+<h3 id="线性散列表"><a href="#线性散列表" class="headerlink" title="线性散列表"></a>线性散列表</h3><p>h(k)仍是二进制位序列，但使用右边(低)i位区分桶</p>
+<ul>
+<li>桶数＝n，h(k)的右i位＝m</li>
+<li>若m &lt; n, 则记录位于第m个桶</li>
+<li>若n ≤ m &lt; 2的i次方, 则记录位于第$m-2^{i-1}$个桶</li>
+</ul>
+<p>n的选择: 总是使n与当前记录总数r保持某个固定比例: 意味着仅有当桶的填充度达到超过某个比例后桶数才开始增长</p>
+<p><img src="/figures/06-15.png"></p>
+<p><img src="/figures/06-16.png"></p>
+<p><img src="/figures/06-17.png"></p>
+<p><img src="/figures/06-18.png"></p>
+<ol>
+<li>空间效率优于可扩展散列表</li>
+<li>查找性能劣于可扩展散列表</li>
+<li>综合性能较好</li>
+</ol>
+<h2 id="多维数据及应用"><a href="#多维数据及应用" class="headerlink" title="多维数据及应用"></a>多维数据及应用</h2><p>同时在数据的多个维上进行匹配, 传统的索引只能索引一维，不适于多维数据处理</p>
 
     </div>
 
@@ -325,7 +454,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Index-Structures"><span class="nav-number">1.</span> <span class="nav-text">Index Structures</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E6%96%87%E4%BB%B6%E7%9A%84%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.</span> <span class="nav-text">顺序文件的索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E9%9B%86%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">密集索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.2.</span> <span class="nav-text">稀疏索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.3.</span> <span class="nav-text">多级索引</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Index-Structures"><span class="nav-number">1.</span> <span class="nav-text">Index Structures</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E6%96%87%E4%BB%B6%E7%9A%84%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.</span> <span class="nav-text">顺序文件的索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E9%9B%86%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">密集索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.2.</span> <span class="nav-text">稀疏索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.3.</span> <span class="nav-text">多级索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E7%B4%A2%E5%BC%95"><span class="nav-number">1.2.</span> <span class="nav-text">辅助索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E7%B4%A2%E5%BC%95%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.1.</span> <span class="nav-text">辅助索引的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E7%B4%A2%E5%BC%95%E4%B8%AD%E7%9A%84%E9%97%B4%E6%8E%A5%E6%A1%B6"><span class="nav-number">1.2.2.</span> <span class="nav-text">辅助索引中的间接桶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95"><span class="nav-number">1.2.3.</span> <span class="nav-text">倒排索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-%E6%A0%91"><span class="nav-number">1.3.</span> <span class="nav-text">B+树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE"><span class="nav-number">1.3.1.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5"><span class="nav-number">1.3.2.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4"><span class="nav-number">1.3.3.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%88%E7%8E%87"><span class="nav-number">1.3.4.</span> <span class="nav-text">效率</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%A3%E5%88%97%E8%A1%A8"><span class="nav-number">1.4.</span> <span class="nav-text">散列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%A3%E5%88%97%E8%A1%A8%E6%8F%92%E5%85%A5"><span class="nav-number">1.4.2.</span> <span class="nav-text">散列表插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4-1"><span class="nav-number">1.4.3.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%88%A9%E7%94%A8%E7%8E%87"><span class="nav-number">1.4.4.</span> <span class="nav-text">空间利用率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A2%9E%E9%95%BF"><span class="nav-number">1.4.5.</span> <span class="nav-text">文件增长</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E6%89%A9%E5%B1%95%E6%95%A3%E5%88%97%E8%A1%A8"><span class="nav-number">1.4.6.</span> <span class="nav-text">可扩展散列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%95%A3%E5%88%97%E8%A1%A8"><span class="nav-number">1.4.7.</span> <span class="nav-text">线性散列表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%BB%B4%E6%95%B0%E6%8D%AE%E5%8F%8A%E5%BA%94%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">多维数据及应用</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
