@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sun0405.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Buffer Management旨在: 最小化磁盘的I&#x2F;O次数, 保持最可能被访问的在内存中. 缓冲区结构 frame的参数 Dirty: Frame中的块是否已经被修改 Pin-count: Frame的块以及被请求并且还未释放的计数, 即当前的用户数 Others: latch, 是否加锁  请求块如果请求块不在缓冲池中, 则选择一个frame来替代, 如果这个frame是dirty的, 将">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ADB-Study05">
+<meta property="og:url" content="https://sun0405.github.io/2023/10/29/ABD-study05/index.html">
+<meta property="og:site_name" content="Sun0405&#39;s Blog">
+<meta property="og:description" content="Buffer Management旨在: 最小化磁盘的I&#x2F;O次数, 保持最可能被访问的在内存中. 缓冲区结构 frame的参数 Dirty: Frame中的块是否已经被修改 Pin-count: Frame的块以及被请求并且还未释放的计数, 即当前的用户数 Others: latch, 是否加锁  请求块如果请求块不在缓冲池中, 则选择一个frame来替代, 如果这个frame是dirty的, 将">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sun0405.github.io/figures/05-02.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/05-01.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/05-03.png">
+<meta property="article:published_time" content="2023-10-29T13:11:36.000Z">
+<meta property="article:modified_time" content="2023-12-03T03:03:24.333Z">
+<meta property="article:author" content="Sun0405">
+<meta property="article:tag" content="ABD">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sun0405.github.io/figures/05-02.png">
+
+<link rel="canonical" href="https://sun0405.github.io/2023/10/29/ABD-study05/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ADB-Study05 | Sun0405's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sun0405's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2023/10/29/ABD-study05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sun0405">
+      <meta itemprop="description" content="没有答案，时光荏苒">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sun0405's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ADB-Study05
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-29 21:11:36" itemprop="dateCreated datePublished" datetime="2023-10-29T21:11:36+08:00">2023-10-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-03 11:03:24" itemprop="dateModified" datetime="2023-12-03T11:03:24+08:00">2023-12-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ABD-USTC/" itemprop="url" rel="index"><span itemprop="name">ABD-USTC</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Buffer-Management"><a href="#Buffer-Management" class="headerlink" title="Buffer Management"></a>Buffer Management</h1><p>旨在: 最小化磁盘的I/O次数, 保持最可能被访问的在内存中.</p>
+<h2 id="缓冲区结构"><a href="#缓冲区结构" class="headerlink" title="缓冲区结构"></a>缓冲区结构</h2><p><img src="/figures/05-02.png" alt="图二"></p>
+<h3 id="frame的参数"><a href="#frame的参数" class="headerlink" title="frame的参数"></a>frame的参数</h3><ul>
+<li>Dirty: Frame中的块是否已经被修改</li>
+<li>Pin-count: Frame的块以及被请求并且还未释放的计数, 即当前的用户数</li>
+<li>Others: latch, 是否加锁</li>
+</ul>
+<h3 id="请求块"><a href="#请求块" class="headerlink" title="请求块"></a>请求块</h3><p>如果请求块不在缓冲池中, 则选择一个frame来替代, 如果这个frame是dirty的, 将它写入磁盘, 读取请求块进入所选择的frame. Pin这个块并返回地址.</p>
+<h2 id="缓冲区替换算法"><a href="#缓冲区替换算法" class="headerlink" title="缓冲区替换算法"></a>缓冲区替换算法</h2><h3 id="理论最优算法-OPT算法"><a href="#理论最优算法-OPT算法" class="headerlink" title="理论最优算法: OPT算法"></a>理论最优算法: OPT算法</h3><p>OPT算法也称为Belady’s算法</p>
+<p>每次都置换以后永远也用不到的页面, 若没有则淘汰最久以后再用到的页面; OPT算法必须预先知道全部的页面访问序列, 但再实际的DBMS/OS中是无法实现的, 因此仅有理论意义.</p>
+<p>作用: 可以在实验中作为算法性能的上界加以对比</p>
+<h3 id="LRU"><a href="#LRU" class="headerlink" title="LRU"></a>LRU</h3><p>所以的frame按照最近一次访问时间排列成一个链表</p>
+<p>LRU—-()—-()—-()– &lt;—MRU</p>
+<p>基于时间局部性假设: 越是最近访问的在未来被访问的概率越高, 总是替换LRU端的frame</p>
+<p>优点:</p>
+<ul>
+<li>能很好地作用于流行的页面</li>
+<li>在置换时的复杂度是O(1)</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>缓存污染, LRU+重复序列扫描, 因为它只考虑最近的一次访问时间.</li>
+<li>开销: 每次都要修改LRU列表</li>
+<li>如果访问不满足时间局部性则性能较差</li>
+<li>如果仅考虑最近一次访问, 则不考虑访问频率</li>
+</ul>
+<h3 id="LRU-K"><a href="#LRU-K" class="headerlink" title="LRU-K"></a>LRU-K</h3><p>在LRU基础上考虑了频率问题</p>
+<p>如果某个frame的访问次数达到了k次以上, 则应当尽量不置换</p>
+<ul>
+<li>维护2个LRU链表, 一个是访问次数小于K的, 一个是访问次数K次以上的</li>
+<li>优先安装LRU策略置换小于K次的链表</li>
+<li>保证高频访问的页能够尽量在BUFFER中</li>
+<li>K并非越大越好, 一般为2即可</li>
+<li>缺点: 需要额外记录访问次数</li>
+</ul>
+<h3 id="2Q"><a href="#2Q" class="headerlink" title="2Q"></a>2Q</h3><p>与LRU-2类似,但不同的地方在于访问一次的队列使用FIFO, 而不是LRU.</p>
+<img src="/figures/05-01.png" style="zoom:43%;" />
+
+<h3 id="Second-Chance-FIFO"><a href="#Second-Chance-FIFO" class="headerlink" title="Second-Chance FIFO"></a>Second-Chance FIFO</h3><p>相当于给了每个frame两次置换机会, 避免高频访问但最近一轮没有被访问的frame被置换出buffer</p>
+<p>每个frame仅需要一个额外的Bit, 空间代价低</p>
+<p>缺点: 置换时需要移动多个元素，理论性能比LRU差</p>
+<h3 id="CLOCK"><a href="#CLOCK" class="headerlink" title="CLOCK"></a>CLOCK</h3><p>也是Second-Chance的变种, 将Second-Chance FIFO组织成环形</p>
+<p><img src="/figures/05-03.png" alt="图三"></p>
+<p>N个frame组成环形，current指针指向当前 frame；每个frame有一个referenced位，初始为1； 当需要置换页时，从current开始检查，若 pin-count&gt;0，current增加1；若referenced 已启动（=1），则关闭它（=0）并增加current（保证最近的不被替换）；若pin-count=0并且referenced关闭（=0），则替换该frame，同时current加1 </p>
+<p>注意：Current指针只在置换时更新，访问命中时不改变Current指针</p>
+<h3 id="SSD上的置换算法"><a href="#SSD上的置换算法" class="headerlink" title="SSD上的置换算法"></a>SSD上的置换算法</h3><p>传统的置换算法强调命中率, 但是SSD上的略有区别.</p>
+<ul>
+<li>闪存: 读快写慢, 写次数有限(寿命限制)</li>
+</ul>
+<p>减少缓存置换中对闪存的写是一个重要指标</p>
+<ul>
+<li>SSD-aware缓存算法</li>
+</ul>
+<p>首先考虑改进<strong>LRU</strong>, 即有CFLRU算法(clean-first), 分为clean page, dirty page</p>
+<p>LRU-WSR: clean-first+cold flag, 置换: clean &gt; cold dirty &gt; hot dirty, 冷热数据分类, 即考虑访问频率. 但是这样做对空间的占用比较大. 还有新鲜程度, 即时间和频率都要注意, 用一个行数来进行”老化”, </p>
+<p>AD-LRU:</p>
+<h3 id="为何不使用OS缓冲区管理"><a href="#为何不使用OS缓冲区管理" class="headerlink" title="为何不使用OS缓冲区管理"></a>为何不使用OS缓冲区管理</h3><p>DBMS经常能预测访问模强制式:</p>
+<ul>
+<li>可以使用更专门的缓冲区替换策略</li>
+<li>有利于pre-fetch(预取)策略的有效使用</li>
+</ul>
+<p>但文件系统是难以预测的, 以文件为基础进行管理.</p>
+<p>DBMS需要强制写回磁盘能力, OS的缓冲写回一般通过记录写请求来实现, 实际的磁盘修改推迟, 因此不能保证写顺序.</p>
+<h2 id="缓冲区管理器的实现"><a href="#缓冲区管理器的实现" class="headerlink" title="缓冲区管理器的实现"></a>缓冲区管理器的实现</h2><p>将key的请求转化为Page请求.</p>
+<p>record请求 -&gt; frame请求 -&gt; page请求 -&gt;  disk file I/O</p>
+<h3 id="错误的记录操作实现例子"><a href="#错误的记录操作实现例子" class="headerlink" title="错误的记录操作实现例子"></a>错误的记录操作实现例子</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">fopen();</span><br><span class="line">fseek();</span><br><span class="line">fwrite();</span><br><span class="line">```</span><br></pre></td></tr></table></figure>
+
+<p>基于文件系统, 使用了FS的缓冲管理</p>
+<ul>
+<li>不能保证WAL</li>
+<li>不利于查询优化</li>
+<li>不适应应用需求</li>
+</ul>
+<h3 id="Block-Vs-Disk-File"><a href="#Block-Vs-Disk-File" class="headerlink" title="Block Vs Disk File"></a>Block Vs Disk File</h3><p>文件存储在磁盘上的物理形式是 bits/bytes，block是由OS或DBMS软件对文件所做的抽象，这一抽象是通过控制数据在文件中的起止offset来实现的</p>
+<p>通常frame大小=page大小</p>
+<p>Buffer = set of frames, File = set of pages</p>
+<h3 id="Buffer的存储结构"><a href="#Buffer的存储结构" class="headerlink" title="Buffer的存储结构"></a>Buffer的存储结构</h3><p>Buffer是一个frame的列表，每个frame用于表示和存放一个磁盘块</p>
+<h3 id="Buffer中Frame的查找"><a href="#Buffer中Frame的查找" class="headerlink" title="Buffer中Frame的查找"></a>Buffer中Frame的查找</h3><p>读磁盘块时: 根据page_id来确定在Buffer中是否已经存在frame</p>
+<p>写磁盘块时: 要根据frame_id来快速找到文件中对应的page_id</p>
+<p><code>y = hash(page)</code></p>
+<p>要解决fram(page_id)中page_id的大空间问题, 用hash表</p>
+<p>首先, 要维护Buffer中所有frame的维护信息, 如:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">BCB</span> &#123;</span></span><br><span class="line">	BCB();</span><br><span class="line">    <span class="keyword">int</span> page_id;</span><br><span class="line">    <span class="keyword">int</span> frame_id;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    <span class="keyword">int</span> time;</span><br><span class="line">    <span class="keyword">int</span> dirty;</span><br><span class="line">    BCB * next;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>建立frame-page之间的索引</p>
+<p>若用Hash Table, 需要建立2个</p>
+<ul>
+<li>BCB HTable</li>
+<li>int HTable</li>
+</ul>
+<h3 id="Buffer-Manager的基本功能"><a href="#Buffer-Manager的基本功能" class="headerlink" title="Buffer Manager的基本功能"></a>Buffer Manager的基本功能</h3><ul>
+<li>FixPage(int page_id): 将对应page_id的page读入到buffer中。如果 buffer已满，则需要选择换出的frame。</li>
+<li>FixNewPage(): 在插入数据时申请一个新page并将其放在buffer中</li>
+<li>SelectVictim(): 选择换出的frame_id</li>
+<li>FindFrame(int page_id): 查找给定的page是否已经在某个frame中了</li>
+<li>SetDirty(int frame_id): 设定frame为dirty</li>
+</ul>
+<h3 id="数据库文件的一般组成"><a href="#数据库文件的一般组成" class="headerlink" title="数据库文件的一般组成"></a>数据库文件的一般组成</h3><p>数据文件: 首块在Insert_Record时创建, 一般块号从0开始(FixnewPage)</p>
+<p>系统目录文件: 首块在Create_Table时创建(FixNewPage)</p>
+<p><em>所有数据和元数据操作都唯一通过 Buffer Manager来请求page</em></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ABD/" rel="tag"># ABD</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/10/22/ABD-study04/" rel="prev" title="ADB-Study04">
+      <i class="fa fa-chevron-left"></i> ADB-Study04
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/11/05/ABD-study06/" rel="next" title="ADB-Study06">
+      ADB-Study06 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Buffer-Management"><span class="nav-number">1.</span> <span class="nav-text">Buffer Management</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">缓冲区结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#frame%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">frame的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%9D%97"><span class="nav-number">1.1.2.</span> <span class="nav-text">请求块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">缓冲区替换算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E6%9C%80%E4%BC%98%E7%AE%97%E6%B3%95-OPT%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">理论最优算法: OPT算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LRU"><span class="nav-number">1.2.2.</span> <span class="nav-text">LRU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LRU-K"><span class="nav-number">1.2.3.</span> <span class="nav-text">LRU-K</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2Q"><span class="nav-number">1.2.4.</span> <span class="nav-text">2Q</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Second-Chance-FIFO"><span class="nav-number">1.2.5.</span> <span class="nav-text">Second-Chance FIFO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CLOCK"><span class="nav-number">1.2.6.</span> <span class="nav-text">CLOCK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSD%E4%B8%8A%E7%9A%84%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.7.</span> <span class="nav-text">SSD上的置换算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BD%95%E4%B8%8D%E4%BD%BF%E7%94%A8OS%E7%BC%93%E5%86%B2%E5%8C%BA%E7%AE%A1%E7%90%86"><span class="nav-number">1.2.8.</span> <span class="nav-text">为何不使用OS缓冲区管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.3.</span> <span class="nav-text">缓冲区管理器的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E7%9A%84%E8%AE%B0%E5%BD%95%E6%93%8D%E4%BD%9C%E5%AE%9E%E7%8E%B0%E4%BE%8B%E5%AD%90"><span class="nav-number">1.3.1.</span> <span class="nav-text">错误的记录操作实现例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Block-Vs-Disk-File"><span class="nav-number">1.3.2.</span> <span class="nav-text">Block Vs Disk File</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.3.</span> <span class="nav-text">Buffer的存储结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer%E4%B8%ADFrame%E7%9A%84%E6%9F%A5%E6%89%BE"><span class="nav-number">1.3.4.</span> <span class="nav-text">Buffer中Frame的查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer-Manager%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD"><span class="nav-number">1.3.5.</span> <span class="nav-text">Buffer Manager的基本功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E8%88%AC%E7%BB%84%E6%88%90"><span class="nav-number">1.3.6.</span> <span class="nav-text">数据库文件的一般组成</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Sun0405</p>
+  <div class="site-description" itemprop="description">没有答案，时光荏苒</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021.12.08 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sun0405</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
