@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sun0405.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="关系数据库回顾数据库体系结构数据库体系结构是从模式的角度来描述一般数据库系统的概念和结构，可以用于解释特定数据库系统的内部结构，ANSI&#x2F;SPARC体系结构——三级模式结构＋两级映象 数据库模式的概念模式：数据库中全体数据的逻辑结构和特征的描述，它仅仅涉及类型的描述，不涉及具体的值。 实例：模式的一个具体值称为模式的一个实例。  数据库的三级模式结构 外模式 概念模式 内模式  外模式：单个用户所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ADB-Study02">
+<meta property="og:url" content="https://sun0405.github.io/2023/10/12/ABD-study02/index.html">
+<meta property="og:site_name" content="Sun0405&#39;s Blog">
+<meta property="og:description" content="关系数据库回顾数据库体系结构数据库体系结构是从模式的角度来描述一般数据库系统的概念和结构，可以用于解释特定数据库系统的内部结构，ANSI&#x2F;SPARC体系结构——三级模式结构＋两级映象 数据库模式的概念模式：数据库中全体数据的逻辑结构和特征的描述，它仅仅涉及类型的描述，不涉及具体的值。 实例：模式的一个具体值称为模式的一个实例。  数据库的三级模式结构 外模式 概念模式 内模式  外模式：单个用户所">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sun0405.github.io/figures/02-01.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/02-02.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/02-03.png">
+<meta property="og:image" content="https://sun0405.github.io/figures/02-04.png">
+<meta property="article:published_time" content="2023-10-12T13:11:36.000Z">
+<meta property="article:modified_time" content="2023-12-03T03:02:58.368Z">
+<meta property="article:author" content="Sun0405">
+<meta property="article:tag" content="ABD">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sun0405.github.io/figures/02-01.png">
+
+<link rel="canonical" href="https://sun0405.github.io/2023/10/12/ABD-study02/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ADB-Study02 | Sun0405's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sun0405's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2023/10/12/ABD-study02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sun0405">
+      <meta itemprop="description" content="没有答案，时光荏苒">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sun0405's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ADB-Study02
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-12 21:11:36" itemprop="dateCreated datePublished" datetime="2023-10-12T21:11:36+08:00">2023-10-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-03 11:02:58" itemprop="dateModified" datetime="2023-12-03T11:02:58+08:00">2023-12-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ABD-USTC/" itemprop="url" rel="index"><span itemprop="name">ABD-USTC</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="关系数据库回顾"><a href="#关系数据库回顾" class="headerlink" title="关系数据库回顾"></a>关系数据库回顾</h1><h2 id="数据库体系结构"><a href="#数据库体系结构" class="headerlink" title="数据库体系结构"></a>数据库体系结构</h2><p>数据库体系结构是从模式的角度来描述一般数据库系统的概念和结构，可以用于解释特定数据库系统的内部结构，ANSI/SPARC体系结构——三级模式结构＋两级映象</p>
+<h3 id="数据库模式的概念"><a href="#数据库模式的概念" class="headerlink" title="数据库模式的概念"></a>数据库模式的概念</h3><p><strong>模式</strong>：数据库中全体数据的逻辑结构和特征的描述，它仅仅涉及类型的描述，不涉及具体的值。</p>
+<p><strong>实例</strong>：模式的一个具体值称为模式的一个实例。</p>
+<p><img src="/figures/02-01.png" alt="image-20230923205204128"></p>
+<h3 id="数据库的三级模式结构"><a href="#数据库的三级模式结构" class="headerlink" title="数据库的三级模式结构"></a>数据库的三级模式结构</h3><ul>
+<li>外模式</li>
+<li>概念模式</li>
+<li>内模式</li>
+</ul>
+<p><strong>外模式</strong>：单个用户所看到的局部数据的逻辑结构和特征的描述；对用户而言，外模式就是数据库；建立在概念模式之上，同一模式可有多个不同的外模式；通过子模式DDL进行定义</p>
+<p><strong>外部视图</strong>：外模式的实例</p>
+<p><strong>概念模式</strong>：数据库中全体数据的逻辑结构和特征的描述 ，如：数据记录由哪些数据项构成；数据项的名字、类型、取值范围；数据之间的联系、数据的完整性等。</p>
+<p>概念模式不涉及硬件环境，且一个数据库只有一个概念模式。通过模式DDL进行定义</p>
+<p><strong>概念视图</strong>：概念模式的实例</p>
+<p><strong>内模式</strong>：数据物理结构和存储方式的描述，如：记录的存储方式；索引按什么方式组织；数据是否加密？是否压缩存储？</p>
+<p>内模式不涉及物理块（或页）的大小，也不考虑具体设备的柱面或磁道大小；和概念模式一样，一个数据库也仅有一个内模式；通过内模式DDL定义。</p>
+<p><strong>内部视图</strong>：内模式的实例</p>
+<p><img src="/figures/02-02.png" alt="image-20230923210234796"></p>
+<h3 id="二级映象和数据独立性"><a href="#二级映象和数据独立性" class="headerlink" title="二级映象和数据独立性"></a>二级映象和数据独立性</h3><p>二级映象实现了三级模式结构直接按的联系和转换，这样就使得用户可以不必关注数据的底层表示方式和存储方式，逻辑化处理数据。</p>
+<p><img src="/figures/02-03.png" alt="02-03"></p>
+<p><strong>外模式/模式映象</strong>: 定义了外模式与概念模式之间的对应关系.</p>
+<ul>
+<li>属性名称可能不同</li>
+<li>外模式中的属性可能由模式中的多个属性运算而得</li>
+</ul>
+<p>作用: 当概念模式发生改变时, 只要修改外模式/模型映像, 可保持外模式不变, 从而保持用户应用程序不变, 保证了数据与用户程序的逻辑独立性——数据的<strong>逻辑独立性</strong></p>
+<p><strong>模式/内模式映象</strong>: 定义了概念模式和内模式之间的对应关系</p>
+<ul>
+<li>概念模式中的逻辑记录和字段在内部 如何表示</li>
+</ul>
+<p>当数据库的内部存储结构发生改变时，只要修改模式/内模式映象，可保持概念模式不变，从而保持外模式以及用户程序的不变，保证了数据与程序的物理独立性——数据的<strong>物理独立性</strong></p>
+<h3 id="SQL数据库体系结构"><a href="#SQL数据库体系结构" class="headerlink" title="SQL数据库体系结构"></a>SQL数据库体系结构</h3><p><img src="/figures/02-04.png" alt="图四"></p>
+<h2 id="关系数据模型"><a href="#关系数据模型" class="headerlink" title="关系数据模型"></a>关系数据模型</h2><p>模型是对现实世界特征的抽象, 而数据模型是对现实世界数据特征的抽象.</p>
+<p>定义: 描述现实世界实体, 实体间联系以及数据语义和一致性约束的模型</p>
+<h3 id="数据模型的分类"><a href="#数据模型的分类" class="headerlink" title="数据模型的分类"></a>数据模型的分类</h3><p><strong>概念数据模型</strong>(概念模型):</p>
+<ul>
+<li>按用户的观点对数据进行建模, 强调语义表达功能</li>
+<li>独立于计算机系统和DBMS</li>
+<li>主要用于数据库的概念设计</li>
+</ul>
+<p><strong>结构数据模型</strong>(数据模型):</p>
+<ul>
+<li>直接面向数据库的逻辑结构</li>
+<li>与计算机系统和DBMS相关</li>
+<li>有严格的形式化定义, 以便于在计算机中实现</li>
+</ul>
+<h3 id="数据抽象的层次"><a href="#数据抽象的层次" class="headerlink" title="数据抽象的层次"></a>数据抽象的层次</h3><p>现实世界 –&gt;信息世界(概念模型) –&gt; 机器世界(数据模型)</p>
+<h3 id="数据模型的要素"><a href="#数据模型的要素" class="headerlink" title="数据模型的要素"></a>数据模型的要素</h3><p>数据结构: 现实世界实体以及实体间联系的表示和实现</p>
+<p>数据操作: 数据检索和更新的实现</p>
+<p>数据的完整性约束: 数据及数据间联系应具有的制约和依赖规则</p>
+<h3 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h3><p>用<strong>规范化的二维表格结构</strong>表示实体集, <strong>外码</strong>表示实体间联系, <strong>三类完整性</strong>表示数据约束的数据模型.</p>
+<h3 id="一些术语"><a href="#一些术语" class="headerlink" title="一些术语"></a>一些术语</h3><ul>
+<li>属性: 二维表格的每一列称为关系的一个属性, 列的数目成为<em>度</em>.</li>
+<li>元组: 每一行称为关系的一个元组, 元组数目称为<em>势</em>.</li>
+<li>域: 一组具有相同数据类型的值的集合, 每个属性有一个域</li>
+<li>关系: 元组的集合</li>
+<li>超码: 在关系中能唯一标识一个元组的属性集称为关系模式的超码</li>
+<li>候选码: 不含多余属性的超码, 包含在任何一个候选码中的属性称为主属性, 不包含在任何一个候选码中的属性称为非主属性.</li>
+<li>主码: 用户选作元组表示的一个候选码称为主码, 其余的候选码称为替换码.</li>
+</ul>
+<h3 id="关系的性质"><a href="#关系的性质" class="headerlink" title="关系的性质"></a>关系的性质</h3><p>关系是一个规范化的二维表格</p>
+<ul>
+<li>属性值不可分解: 不允许表中有表</li>
+<li>元组不可重复: 因此一个关系模式中至少存在一个候选码</li>
+<li>没有行序: 即元组之间无序, 关系是元组的集合, 集合的元素是无序的</li>
+<li>没有列序: 即属性之间无序, 关系模式是属性的集合</li>
+</ul>
+<h3 id="关系模式与关系数据库"><a href="#关系模式与关系数据库" class="headerlink" title="关系模式与关系数据库"></a>关系模式与关系数据库</h3><p>关系模式:</p>
+<ol>
+<li>关系的逻辑结构和特征的描述</li>
+<li>对应于二维表格的表头</li>
+<li>通常由属性集和各属性域表示, 不关心域时可省略域</li>
+</ol>
+<p>关系: 关系模式的实例, 即二维表</p>
+<p>关系数据库模式: 关系模式的集合</p>
+<p>关系数据库: 关系数据库模式的实例</p>
+<h3 id="关系模式的形式化定义"><a href="#关系模式的形式化定义" class="headerlink" title="关系模式的形式化定义"></a>关系模式的形式化定义</h3><p><strong>R(U, D, dom, F)</strong>:</p>
+<p>R为关系模式名，U是一个属性集，D是U中属性的值所来自的域 ，Dom是属性向域的映射集合，F是属性间的依赖关系</p>
+<h3 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h3><p>F在实际中一般只考虑函数依赖</p>
+<p>函数依赖是指一个关系模式中一个属性集和另一个属性集间的多对一关系</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ABD/" rel="tag"># ABD</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/10/11/ABD-study01/" rel="prev" title="ADB-Study01">
+      <i class="fa fa-chevron-left"></i> ADB-Study01
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/10/15/ABD-study03/" rel="next" title="ADB-Study03">
+      ADB-Study03 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">关系数据库回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">数据库体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.1.</span> <span class="nav-text">数据库模式的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E7%BA%A7%E6%A8%A1%E5%BC%8F%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.2.</span> <span class="nav-text">数据库的三级模式结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BA%A7%E6%98%A0%E8%B1%A1%E5%92%8C%E6%95%B0%E6%8D%AE%E7%8B%AC%E7%AB%8B%E6%80%A7"><span class="nav-number">1.1.3.</span> <span class="nav-text">二级映象和数据独立性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.4.</span> <span class="nav-text">SQL数据库体系结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">关系数据模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.2.1.</span> <span class="nav-text">数据模型的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1%E7%9A%84%E5%B1%82%E6%AC%A1"><span class="nav-number">1.2.2.</span> <span class="nav-text">数据抽象的层次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%A6%81%E7%B4%A0"><span class="nav-number">1.2.3.</span> <span class="nav-text">数据模型的要素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.4.</span> <span class="nav-text">关系模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E6%9C%AF%E8%AF%AD"><span class="nav-number">1.2.5.</span> <span class="nav-text">一些术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">1.2.6.</span> <span class="nav-text">关系的性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%BC%8F%E4%B8%8E%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.2.7.</span> <span class="nav-text">关系模式与关系数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%BD%A2%E5%BC%8F%E5%8C%96%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.8.</span> <span class="nav-text">关系模式的形式化定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96"><span class="nav-number">1.2.9.</span> <span class="nav-text">函数依赖</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Sun0405</p>
+  <div class="site-description" itemprop="description">没有答案，时光荏苒</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021.12.08 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sun0405</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,26 +17,26 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"sun0405.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="Scheme-part4Interpreters计算器语言通过嵌套调用表达式提供了一种组合方式。但是，计算器语言没有办法定义新的运算符，绑定名字与值，或者表达一般的计算式。计算器不支持抽象。因此，它不是一个强有力的编程语言。 我们现在应要去定义一种常规的编程语言，可以绑定名字与值和定义新运算来支持抽象。 与上一节将完整的解释器呈现为Python源代码不同，本节采用描述性方法。配套项目要求您通过构建">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scheme-part4">
-<meta property="og:url" content="http://example.com/2022/08/13/Scheme-part4/index.html">
+<meta property="og:url" content="https://sun0405.github.io/2022/08/13/Scheme-part4/index.html">
 <meta property="og:site_name" content="Sun0405&#39;s Blog">
 <meta property="og:description" content="Scheme-part4Interpreters计算器语言通过嵌套调用表达式提供了一种组合方式。但是，计算器语言没有办法定义新的运算符，绑定名字与值，或者表达一般的计算式。计算器不支持抽象。因此，它不是一个强有力的编程语言。 我们现在应要去定义一种常规的编程语言，可以绑定名字与值和定义新运算来支持抽象。 与上一节将完整的解释器呈现为Python源代码不同，本节采用描述性方法。配套项目要求您通过构建">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://composingprograms.com/img/factorial_machine.png">
 <meta property="article:published_time" content="2022-08-13T12:58:30.000Z">
-<meta property="article:modified_time" content="2022-08-13T14:21:53.750Z">
+<meta property="article:modified_time" content="2023-10-11T14:56:28.679Z">
 <meta property="article:author" content="Sun0405">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="cs61a">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://composingprograms.com/img/factorial_machine.png">
 
-<link rel="canonical" href="http://example.com/2022/08/13/Scheme-part4/">
+<link rel="canonical" href="https://sun0405.github.io/2022/08/13/Scheme-part4/">
 
 
 <script id="page-configurations">
@@ -164,7 +164,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/13/Scheme-part4/">
+    <link itemprop="mainEntityOfPage" href="https://sun0405.github.io/2022/08/13/Scheme-part4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -186,9 +186,24 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-08-13 20:58:30 / 修改时间：22:21:53" itemprop="dateCreated datePublished" datetime="2022-08-13T20:58:30+08:00">2022-08-13</time>
+              <time title="创建时间：2022-08-13 20:58:30" itemprop="dateCreated datePublished" datetime="2022-08-13T20:58:30+08:00">2022-08-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-11 22:56:28" itemprop="dateModified" datetime="2023-10-11T22:56:28+08:00">2023-10-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS61a/" itemprop="url" rel="index"><span itemprop="name">CS61a</span></a>
+                </span>
             </span>
 
           
@@ -222,9 +237,9 @@
 <p><strong>Eval/apply recursion</strong>:</p>
 <p>实现评估过程的函数 <code>scheme_eval</code>和<code>scheme_apply</code>是相互递归的。每当遇到调用表达式时，评估都需要应用。应用程序使用评估将操作数表达式评估为参数，以及评估用户定义过程的主体。这种相互递归过程的一般结构相当普遍地出现在解释器中：评估是根据应用定义的，应用是根据评估定义的。</p>
 <p>这个递归循环以语言初始值结束。评估有一个评估原始表达式的基本情况。一些特殊形式也构成没有递归调用的基本情况。函数应用程序有一个应用原始过程的基本案例。这种相互递归的结构，在处理表达式形式的<code>eval</code>函数和处理函数及其参数的<code>apply</code>函数之间，构成了评估过程的本质。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Eval</span><br><span class="line">Base cases:</span><br><span class="line"></span><br><span class="line">Primitive values (numbers)</span><br><span class="line">Look up values bound to symbols</span><br><span class="line">Recursive calls:</span><br><span class="line"></span><br><span class="line">Eval(operator, operands) of call expressions</span><br><span class="line">Apply(procedure, arguments)</span><br><span class="line">Eval(sub-expressions) of special forms</span><br></pre></td></tr></table></figure>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Eval</span><br><span class="line">Base cases:</span><br><span class="line"></span><br><span class="line">Primitive values (numbers)</span><br><span class="line">Look up values bound <span class="keyword">to</span> symbols</span><br><span class="line">Recursive calls:</span><br><span class="line"></span><br><span class="line">Eval(<span class="keyword">operator</span>, operands) <span class="keyword">of</span> call expressions</span><br><span class="line">Apply(<span class="function"><span class="keyword">procedure</span>, <span class="title">arguments</span>)</span></span><br><span class="line"><span class="function"><span class="title">Eval</span><span class="params">(sub-expressions)</span> <span class="title">of</span> <span class="title">special</span> <span class="title">forms</span></span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Apply</span><br><span class="line">Base cases:</span><br><span class="line"></span><br><span class="line">Built-in primitive procedures</span><br><span class="line">Recursive calls:</span><br><span class="line"></span><br><span class="line">Eval(body) of user-defined procedures</span><br></pre></td></tr></table></figure>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Apply</span><br><span class="line">Base cases:</span><br><span class="line"></span><br><span class="line">Built-<span class="keyword">in</span> <span class="keyword">primitive</span><span class="title"> procedures</span></span><br><span class="line">Recursive calls:</span><br><span class="line"></span><br><span class="line">Eval(body) of user-<span class="keyword">defined</span> procedures</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-Environments"><a href="#2-Environments" class="headerlink" title="2. Environments"></a>2. Environments</h3><p>现在我们已经描述了Scheme解释器的结构，现在要去实现<code>Frame</code>类来形成环境，每个<code>France</code>实例代表了一种环境，其中符号绑定值。</p>
 <p>一个<code>frame</code>有一个<code>bindings</code>字典，并且有一个父框架，而对于全局框架来说，父框架就是<code>None</code>。</p>
@@ -344,14 +359,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -378,7 +398,7 @@
 <div class="copyright">
   
   &copy; 2021.12.08 – 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
